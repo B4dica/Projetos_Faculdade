@@ -1,0 +1,29 @@
+### --- Arquivos do Sistema --- ###
+Thumbs.db
+
+### --- C / C++ --- ###
+*.exe
+*.o
+*.obj
+*.out
+
+### --- Java --- ###
+*.class
+*.jar
+*.war
+target/
+.metadata/
+
+### --- Python --- ###
+__pycache__/
+*.py[cod]
+.venv/
+env/
+
+### --- Web (Node/React) --- ###
+node_modules/
+.env
+
+### --- IDEs (VS Code / IntelliJ) --- ###
+.vscode/
+.idea/

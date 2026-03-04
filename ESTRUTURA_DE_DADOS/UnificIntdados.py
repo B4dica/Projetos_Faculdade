@@ -1,4 +1,3 @@
-import matplotlib
 
 # def sistema(): 
 #     familia = {Nome:f'{nome}',Bairro:f'{bairro}',Membros:f'{membros}',Renda:f'{renda}',Tipo_de_moradia:f'{tipo}',Nivel:f'{nivel}'}
