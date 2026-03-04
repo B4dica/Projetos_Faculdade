@@ -22,7 +22,7 @@ env/
 
 ### --- Web (Node/React) --- ###
 node_modules/
-.env
+**/.env
 
 ### --- IDEs (VS Code / IntelliJ) --- ###
 .vscode/
