@@ -1,16 +1,22 @@
 import matplotlib.pyplot as plt
 
-# 1. Dados já unificados (Simulando o processamento inteligente)
-bairros = ["Cidade Olímpica", "Vila Maranhão", "Anjo da Guarda", "Coroadinho"]
-niveis_inseguranca = [85, 92, 78, 95] # Porcentagem ou volume unificado
+def grafico_comparativo_cidades(cadastro_geral):
+    # Filtra apenas cidades que possuem alguém cadastrado para o gráfico não ficar vazio
+    cidades = [c for c in cadastro_geral.keys() if len(cadastro_geral[c]) > 0]
+    totais = [len(cadastro_geral[c]) for c in cidades]
+    
+    if not totais:
+        print("⚠️ Sem dados para gerar o gráfico comparativo.")
+        return
 
-# 2. Criação do Gráfico de Barras (Pedido no desafio)
-plt.figure(figsize=(10, 6))
-plt.bar(bairros, niveis_inseguranca, color='teal')
-
-# 3. Customização para a realidade de São Luís
-plt.title('Nível de Insegurança Alimentar por Bairro - São Luís/MA')
-plt.xlabel('Comunidades')
-plt.ylabel('Índice de Vulnerabilidade (%)')
-
-plt.show()
+    plt.figure(figsize=(8, 5))
+    cores = ['#1f77b4', '#ff7f0e', '#2ca02c'] # Cores distintas
+    
+    plt.bar(cidades, totais, color=cores[:len(cidades)])
+    plt.title('Distribuição de Assistência na Região Metropolitana')
+    plt.ylabel('Quantidade de Famílias')
+    plt.xlabel('Municípios')
+    
+    # Ajusta para os nomes não sumirem
+    plt.tight_layout()
+    plt.show()
