@@ -59,3 +59,33 @@ A lógica de Unificação Inteligente resolve a inconsistência de dados atravé
 * **Unificação de Dados:** Resolve a dispersão de informações, tratando a Ilha de São Luís como uma unidade integrada.
 * **Matriz de Sazonalidade:** Através da estrutura `distribuicao_cestas` (Lista de Listas), o sistema prevê meses de maior exigência logística devido ao período de chuvas.
 * **Priorização Automática:** Filtro automático onde famílias com renda *per capita* inferior a R$ 200,00 são marcadas como "Prioridade Alta".
+
+7. Camada de Interação e Tratamento de Dados (Atualizado em 09/03/2026)
+Implementamos uma Interface de Linha de Comando (CLI) interativa que funciona como a porta de entrada do sistema. A grande inovação aqui é a Validação em Tempo Real: o sistema não aceita apenas o que o usuário digita; ele consulta o servidor da Google para confirmar se o local realmente existe antes de salvar.
+
+🛠️ Fluxo de Operação (Loop de Eventos):
+Entrada Nominal: O usuário insere dados básicos (NIS, Nome, Endereço e Referência).
+
+Enriquecimento Geográfico: O módulo GeolocIntelij realiza o Geocoding do endereço + referência.
+
+Setorização Automática: O sistema identifica o bairro oficial retornado pela API e o utiliza como "Chave de Destino" no banco de dados.
+
+Persistência em Memória: Os dados são alocados no dicionário global cadastro_geral.
+
+Visualização sob Demanda: A qualquer momento, o gestor pode solicitar o gráfico, que é gerado dinamicamente com os dados presentes na memória.
+
+8. Lógica de "Gavetas Dinâmicas" e Resiliência
+Diferente de sistemas rígidos, nossa lógica de unificação utiliza Atribuição Dinâmica de Chaves.
+
+Problema: Se tentarmos cadastrar uma família em um bairro que não foi previsto inicialmente no código, o sistema comum travaria (Erro de Chave).
+
+Solução: Implementamos uma verificação de existência: if bairro_real not in cadastro_geral: cadastro_geral[bairro_real] = {}.
+
+Resultado: O software é resiliente. Ele cria novas frentes de assistência conforme a demanda geográfica identificada pela API, permitindo que bairros como Vila Maranhão ou Cidade Olímpica sejam monitorados com precisão, mesmo com variações na grafia do endereço original.
+
+9. Monitoramento e Controle de Recursos
+Como a Google Cloud opera sob regime de cotas, adicionamos um Dashboard de Terminal integrado ao GeolocIntelij.py:
+
+Contador de Requisições: Monitora cada chamada ao método .geocode().
+
+Alerta de Custo: Exibe avisos preventivos para evitar que o projeto ultrapasse os limites gratuitos de testes da Sprint.

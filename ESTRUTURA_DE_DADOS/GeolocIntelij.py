@@ -2,7 +2,9 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import googlemaps
-from googlemaps import Client # Ajuda o VS Code a reconhecer os métodos
+from googlemaps import Client # Ajuda o VS Code a reconhecer os método
+
+contador_api = 0  # Variável global para contar as chamadas
 
 # 1. CONFIGURAÇÃO DE AMBIENTE
 # Localiza o .env na mesma pasta deste arquivo
@@ -28,12 +30,16 @@ def inicializar_gmaps():
         print(f"❌ Erro ao conectar com Google Maps: {e}")
         return None
 
-def buscar_endereco(gmaps_client, endereco_curto):
+def buscar_endereco(gmaps_client, endereco_curto): # gmaps = gmaps_client, endereco_curto = o que vai 
     """
     Recebe um endereço simples e retorna os dados geográficos de São Luís.
     """
+    global contador_api
+
     if not gmaps_client:
         return None
+    contador_api += 1 ### SOMA +1
+    print(f"\n[INFO] Chamada à API nº: {contador_api} (Limite diário sugerido: 200)") ### PRINTA O AVISO
         
     # Força a busca dentro do contexto de São Luís para evitar erros
     busca = f"{endereco_curto}, São Luís, MA, Brasil"
@@ -104,3 +110,10 @@ def extrair_cidade_e_bairro(resultado_google):
         "lat": dados['geometry']['location']['lat'],
         "lng": dados['geometry']['location']['lng']
     }
+
+# No final do arquivo GeolocIntelij.py
+if __name__ == "__main__":
+    print("🌍 Módulo de Geolocalização carregado com sucesso.")
+    test_gmaps = inicializar_gmaps()
+    if test_gmaps:
+        print("✅ Conexão com a API está ativa!")
