@@ -17,9 +17,9 @@ gmaps_cliente = inicializar_gmaps() # Use o nome gmaps_cliente para ser consiste
 
 # Estrutura de dados para as 3 cidades
 cadastro_geral = {
-    "São Luís": {},
-    "Paço do Lumiar": {},
-    "São José de Ribamar": {}
+    "Cidade Olímpica": {},
+    "Vila Maranhão": {},
+    "Anjo da Guarda": {} # ("joao",19,'São luis',9291): 15231637
 }
 
 def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
@@ -44,9 +44,9 @@ def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
         print(f"❌ Erro ao localizar: {endereco}")
 
 # --- TESTE PRÁTICO COM AS 3 CIDADES ---
-cadastrar_na_ilha("NIS-001", "Maria Silva", "Rua do Egito, Centro", "São Luís")
-cadastrar_na_ilha("NIS-002", "José Ribamar", "Maiobão", "Paço do Lumiar")
-cadastrar_na_ilha("NIS-003", "Ana Clara", "Praia de Panaquatira", "São José de Ribamar")
+cadastrar_na_ilha("NIS-001", "Maria Silva", "Rua do Egito, Centro", "Cidade Olímpica")
+cadastrar_na_ilha("NIS-002", "José Ribamar", "Maiobão", "Vila Maranhão")
+cadastrar_na_ilha("NIS-003", "Ana Clara", "Praia de Panaquatira", "Anjo da Guarda")
 
 # --- GERAR O GRÁFICO FINAL ---
 grafico_comparativo_cidades(cadastro_geral)

@@ -32,3 +32,8 @@ Necessidade de cruzar informações de diferentes secretarias para evitar duplic
 
 
 5. Impacto no Texto do DesafioA implementação afeta e resolve os seguintes pontos do texto base:Unificação de Dados: Resolve a dispersão de informações entre as três prefeituras. Agora, um único banco de dados entende a Ilha como uma unidade.Matriz de Sazonalidade: Através do distribuicao_cestas (Lista de Listas), o sistema pode prever quais meses exigem mais logística devido às chuvas no Maranhão.Priorização: Criamos um filtro automático onde famílias com renda per capita inferior a R$ 200 são marcadas com "Prioridade Alta".
+
+
+
+
+Sistema prioritário com base de pilhas com listas, inputs pros dados, definir zonas de risco

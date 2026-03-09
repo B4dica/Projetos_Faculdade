@@ -55,7 +55,7 @@ def extrair_dados_limpos(resultado_google):
     
     # Busca o nome oficial do bairro nos componentes do endereço
     bairro_oficial = "Não Identificado"
-    for componente in dados['address_components']:
+    for componente in dados['address_components']: #O(n)
         if 'sublocality_level_1' in componente['types']:
             bairro_oficial = componente['long_name']
             
