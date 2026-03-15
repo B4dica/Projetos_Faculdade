@@ -1,21 +1,23 @@
 # 🗺️ Sistema de Unificação Geográfica (UNDB 4.0)
 **Sistema de Segurança Alimentar - Grande Ilha (São Luís)**
 
-> **Status do Projeto:** Em desenvolvimento (Sprint 1) 🚧  
+> **Status do Projeto:** Em desenvolvimento (Sprint 2) 🚧  
 > **Última Atualização:** 15 de Março de 2026
 
 ![Python](https://img.shields.io/badge/python-3.13-blue.svg)
 ![Google Maps API](https://img.shields.io/badge/Google%20Maps-API-success)
 ![Status](https://img.shields.io/badge/status-Sprint%201-orange)
 
-## 📖 1. Visão Geral do Projeto
+## 📖 1. Visão Geral do Projeto e Problemática
 Este sistema é uma solução de **Inteligência Geográfica** desenvolvida para mapear e mitigar a insegurança alimentar na Região Metropolitana de São Luís (São Luís, Paço do Lumiar, São José de Ribamar e Raposa). 
 
-O software utiliza a **API do Google Maps** para normalizar endereços informais e convertê-los em dados estruturados, permitindo a priorização algorítmica de famílias em zonas de alta vulnerabilidade (ex: comunidades ribeirinhas e palafitárias do Eixo Itaqui-Bacanga).
+O software utiliza a **API do Google Maps** para normalizar endereços informais e convertê-los em dados estruturados, permitindo a priorização algorítmica de famílias em zonas de alta vulnerabilidade.
+
+Bairros como **Cidade Olímpica, Vila Maranhão e Anjo da Guarda** concentram famílias com renda *per capita* inferior a meio salário mínimo. Muitas delas dependem exclusivamente de programas de transferência de renda e doações para subsistência. Além disso, comunidades ribeirinhas e palafitárias, como as localizadas às margens dos **rios Anil e Bacanga**, sofrem com enchentes sazonais que agravam a escassez de alimentos e dificultam o acesso aos pontos de distribuição.
 
 ### 🎯 Principais Desafios Resolvidos:
 - **Duplicidade de Dados:** Mitiga lacunas no atendimento da assistência social municipal.
-- **Inconsistência Geográfica:** Transforma inputs informais (ex: "Rua do Peixe, Anjo da Guarda") em endereços oficiais validados em tempo real.
+- **Inconsistência Geográfica:** Transforma inputs informais em endereços oficiais validados em tempo real.
 - **Volume de Cadastros:** Utiliza estruturas com complexidade $O(1)$ para processamento rápido e eficiente.
 
 ---
@@ -38,7 +40,7 @@ Para garantir a melhor complexidade computacional, o sistema utiliza:
 - **Dicionários Aninhados:** Estrutura matriz `{ Cidade: { NIS: { Dados } } }` garantindo acesso de complexidade temporal $O(1)$.
 - **Tuplas:** Coordenadas (lat, lng) são salvas em tuplas garantindo imutabilidade e economia de memória.
 - **Sets (Conjuntos):** Operações matemáticas de Diferença de Conjuntos para comparar "Bairros Alvo" vs "Bairros Atendidos".
-- **Listas de Listas:** Matrizes (`distribuicao_cestas`) para prever a sazonalidade e logística no período de chuvas.
+- **Listas de Listas:** Matrizes (`distribuicao_cestas`) para prever a sazonalidade e logística no período de chuvas (afetando diretamente as áreas ribeirinhas).
 
 ---
 
@@ -54,6 +56,17 @@ A base de dados de testes foi calibrada com as pesquisas oficias mais recentes d
 
 1. **IBGE (PNAD Contínua):** Priorização de lares chefiados por mulheres (59,9% dos casos graves) e baixa escolaridade.
 2. **Rede PENSSAN (VIGISAN):** Linha de corte focada em renda *per capita* $\le$ meio salário mínimo e trabalho informal.
-3. **IMESC / Sedes:** Validação geográfica focada no Eixo Itaqui-Bacanga, Coroadinho e Zona Rural.
+3. **IMESC / Sedes:** Validação geográfica focada nas bacias dos rios Anil e Bacanga, Vila Maranhão, Anjo da Guarda e Cidade Olímpica.
 
 ---
+
+## 💻 6. Como Executar o Projeto
+
+### Pré-requisitos
+- Python 3.13+ instalado.
+- Chave de API válida do Google Cloud (Geocoding API habilitada).
+
+### Passo a passo
+1. Clone este repositório:
+   ```bash
+   git clone [https://github.com/seu-usuario/nome-do-repositorio.git](https://github.com/seu-usuario/nome-do-repositorio.git)
