@@ -1,5 +1,3 @@
-import json
-
 # Tenta ler os dados salvos quando o programa inicia
 try:
     with open("cadastro_familias.json", "r", encoding="utf-8") as arquivo:
