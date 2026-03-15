@@ -1,7 +1,14 @@
-{
-    "Cidade Olímpica": {},
-    "Vila Maranhão": {},
-    "Anjo da Guarda": {},
+import json
+
+# Tenta ler os dados salvos quando o programa inicia
+try:
+    with open("cadastro_familias.json", "r", encoding="utf-8") as arquivo:
+        cadastro_geral = json.load(arquivo)
+        print("📦 Memória restaurada: Dados do JSON carregados com sucesso!")
+except FileNotFoundError:
+    # Se for a primeira vez rodando e o arquivo não existir, começa vazio
+    print("⚠️ Primeiro acesso: Iniciando banco de dados vazio.")
+    cadastro_geral = {},
     "Centro": {
         "NIS-001": {
             "nome": "Maria Silva",
