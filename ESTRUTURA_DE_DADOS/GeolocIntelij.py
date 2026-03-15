@@ -14,7 +14,7 @@ load_dotenv(dotenv_path=caminho_projeto / ".env")
 # Busca a sua chave exata: GEOCODEAPI_KEY
 API_KEY = os.getenv('GEOCODEAPI_KEY')
 
-def inicializar_gmaps():
+def inicializar_gmaps(): #1 ocorrência
     """
     Cria e retorna o cliente do Google Maps usando a chave do .env.
     """
@@ -30,7 +30,8 @@ def inicializar_gmaps():
         print(f"❌ Erro ao conectar com Google Maps: {e}")
         return None
 
-def buscar_endereco(gmaps_client, endereco_curto): # gmaps = gmaps_client, endereco_curto = o que vai 
+def buscar_endereco(gmaps_client, endereco_curto): #2 ocorrência
+    # gmaps = gmaps_client, endereco_curto = o que vai 
     """
     Recebe um endereço simples e retorna os dados geográficos de São Luís.
     """
@@ -50,7 +51,7 @@ def buscar_endereco(gmaps_client, endereco_curto): # gmaps = gmaps_client, ender
         print(f"❌ Erro na busca de geolocalização: {e}")
         return None
 
-def extrair_dados_limpos(resultado_google):
+def extrair_dados_limpos(resultado_google): #4 ocorrência
     """
     Transforma o retorno bruto do Google em um dicionário simples (Unificação Inteligente).
     """
@@ -71,7 +72,7 @@ def extrair_dados_limpos(resultado_google):
         "lng": dados['geometry']['location']['lng'],
         "endereco_formatado": dados['formatted_address']
     }
-def buscar_endereco_regiao_metropolitana(gmaps_client, endereco_curto, cidade):
+def buscar_endereco_regiao_metropolitana(gmaps_client, endereco_curto, cidade): # 3 Ocorrência
     """
     Agora recebe a 'cidade' como argumento para buscar em SLZ, Paço ou Ribamar.
     """
@@ -87,7 +88,7 @@ def buscar_endereco_regiao_metropolitana(gmaps_client, endereco_curto, cidade):
         print(f"❌ Erro na busca: {e}")
         return None
 
-def extrair_cidade_e_bairro(resultado_google):
+def extrair_cidade_e_bairro(resultado_google): #5 ocorrência resultado_gooogle = res_bruto
     """
     Extrai tanto o Bairro quanto a Cidade oficial (Município).
     """

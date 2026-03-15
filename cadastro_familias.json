@@ -1,0 +1,72 @@
+{
+    "Cidade Olímpica": {
+        "NIS-1001": {
+            "nome": "Raimunda Nonata",
+            "cidade": "São Luís",
+            "bairro": "Cidade Olímpica",
+            "coords": [-2.5925, -44.2461],
+            "perfil": {
+                "chefe_familia": "Feminino",
+                "escolaridade": "Ensino Fundamental Incompleto",
+                "trabalho": "Informal (Reciclagem)",
+                "renda_per_capita": 350.00
+            }
+        }
+    },
+    "Vila Maranhão": {
+        "NIS-2002": {
+            "nome": "Benedito das Chagas",
+            "cidade": "São Luís",
+            "bairro": "Vila Maranhão",
+            "coords": [-2.5833, -44.3522],
+            "perfil": {
+                "chefe_familia": "Masculino",
+                "escolaridade": "Analfabeto",
+                "trabalho": "Desempregado",
+                "renda_per_capita": 180.00
+            }
+        }
+    },
+    "Anjo da Guarda": {
+        "NIS-3003": {
+            "nome": "Maria de Jesus",
+            "cidade": "São Luís",
+            "bairro": "Anjo da Guarda",
+            "coords": [-2.5512, -44.3189],
+            "perfil": {
+                "chefe_familia": "Feminino",
+                "escolaridade": "Ensino Fundamental Completo",
+                "trabalho": "Informal (Venda de Alimentos)",
+                "renda_per_capita": 420.00
+            }
+        }
+    },
+    "Coroadinho": {
+        "NIS-4004": {
+            "nome": "Tereza Souza",
+            "cidade": "São Luís",
+            "bairro": "Coroadinho",
+            "coords": [-2.5620, -44.2690],
+            "perfil": {
+                "chefe_familia": "Feminino",
+                "escolaridade": "Ensino Fundamental Incompleto",
+                "trabalho": "Informal (Diarista)",
+                "renda_per_capita": 310.00
+            }
+        }
+    },
+    "Centro": {
+        "NIS-5005": {
+            "nome": "Antônio Ferreira",
+            "cidade": "São Luís",
+            "bairro": "Centro",
+            "coords": [-2.5288, -44.3045],
+            "perfil": {
+                "chefe_familia": "Masculino",
+                "escolaridade": "Ensino Médio Incompleto",
+                "trabalho": "Informal",
+                "renda_per_capita": 600.00
+            }
+        }
+    }
+}
