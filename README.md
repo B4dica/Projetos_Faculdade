@@ -89,3 +89,43 @@ Como a Google Cloud opera sob regime de cotas, adicionamos um Dashboard de Termi
 Contador de Requisições: Monitora cada chamada ao método .geocode().
 
 Alerta de Custo: Exibe avisos preventivos para evitar que o projeto ultrapasse os limites gratuitos de testes da Sprint.
+
+🛡️ Sistema de Segurança Alimentar - Grande Ilha (São Luís)
+📋 Sobre o Projeto
+Este sistema foi desenvolvido como uma solução de Inteligência Geográfica para o mapeamento da insegurança alimentar na Região Metropolitana de São Luís. O software utiliza a Google Maps API para normalizar endereços informais e convertê-los em dados estatísticos precisos, permitindo a priorização de famílias em zonas de alta vulnerabilidade.
+
+📅 Atualização Técnica (15/03/2026)
+Persistência de Dados: Implementação de armazenamento em JSON para garantir que os dados não sejam perdidos ao encerrar o sistema.
+
+Modularização Avançada: Separação total de responsabilidades entre Geocodificação, Lógica de Negócio, Visualização de Dados e Relatórios.
+
+Embasamento Estatístico: Dados fictícios de teste calibrados com a PNAD Contínua 2024 (IBGE) e o Inquérito VIGISAN (Rede PENSSAN).
+
+🏗️ Arquitetura do Sistema (Modular)
+O sistema é dividido em 4 módulos principais para facilitar a manutenção e escalabilidade:
+
+UnificIntdados.py (O Maestro): Gerencia o fluxo principal, menu de usuário e a orquestração entre os outros módulos.
+
+GeolocIntelij.py (O Especialista): Responsável por toda a comunicação com a Google Maps API, tratamento de erros de conexão e extração de coordenadas (lat/lng).
+
+relatorios.py (O Analista): Processa o volume de dados para gerar rankings de prioridade e gerencia a leitura/escrita no arquivo cadastro_familias.json.
+
+gráficos.py (O Visualizador): Utiliza Matplotlib para gerar indicadores visuais da distribuição de assistência por município.
+
+🛠️ Funcionalidades Principais
+Normalização Inteligente: Transforma inputs genéricos como "Rua do Peixe, Anjo da Guarda" em endereços oficiais validados pelo Google.
+
+Ranking de Necessidade: Algoritmo que identifica automaticamente quais bairros possuem maior adensamento de famílias em risco.
+
+Gestão Metropolitana: Suporte total para São Luís, Paço do Lumiar, São José de Ribamar e Raposa.
+
+Base de Dados JSON: Armazenamento estruturado que permite a portabilidade dos dados para futuras plataformas web ou dashboards.
+
+📊 Referencial Teórico e Validação de Dados
+O banco de dados de teste foi populado seguindo os perfis demográficos mais recentes:
+
+IBGE (2024): Foco em lares chefiados por mulheres (59,9% dos casos graves) e chefes de família com baixo nível de escolaridade.
+
+Rede PENSSAN: Foco em famílias com renda per capita inferior a meio salário-mínimo e trabalhadores informais.
+
+IMESC/Sedes: Priorização do Eixo Itaqui-Bacanga (Vila Maranhão/Anjo da Guarda) e a Zona Rural de São Luís.
