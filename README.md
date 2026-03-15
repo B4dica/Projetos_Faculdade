@@ -1,131 +1,72 @@
-# Documentação do Projeto: Sistema de Unificação Geográfica (UNDB 4.0)
+# 🗺️ Sistema de Unificação Geográfica (UNDB 4.0)
+**Sistema de Segurança Alimentar - Grande Ilha (São Luís)**
 
-**Data de atualização:** 06 de março de 2026  
-**Status:** Em desenvolvimento (Sprint 1)
+> **Status do Projeto:** Em desenvolvimento (Sprint 2) 🚧  
+> **Última Atualização:** 15 de Março de 2026
 
----
+![Python](https://img.shields.io/badge/python-3.13-blue.svg)
+![Google Maps API](https://img.shields.io/badge/Google%20Maps-API-success)
+![Status](https://img.shields.io/badge/status-Sprint%201-orange)
 
-## 1. Contexto e Problemática
-Bairros como Cidade Olímpica, Vila Maranhão e Anjo da Guarda concentram famílias com renda *per capita* inferior a meio salário mínimo. Muitas delas dependem exclusivamente de programas de transferência de renda e doações para subsistência. 
+## 📖 1. Visão Geral do Projeto e Problemática
+Este sistema é uma solução de **Inteligência Geográfica** desenvolvida para mapear e mitigar a insegurança alimentar na Região Metropolitana de São Luís (São Luís, Paço do Lumiar, São José de Ribamar e Raposa). 
 
-Além disso, comunidades ribeirinhas e palafitárias, como as localizadas às margens dos rios Anil e Bacanga, sofrem com enchentes sazonais que agravam a escassez de alimentos e dificultam o acesso aos pontos de distribuição.
+O software utiliza a **API do Google Maps** para normalizar endereços informais e convertê-los em dados estruturados, permitindo a priorização algorítmica de famílias em zonas de alta vulnerabilidade.
 
-### Desafios Identificados:
-* **Duplicidade e lacunas no atendimento:** Enquanto algumas famílias estão cadastradas em múltiplos programas, outras em situação crítica sequer constam nos registros da assistência social municipal.
-* **Volume de dados crescente:** O aumento no número de famílias cadastradas em São Luís impacta diretamente o desempenho dos algoritmos.
-    * *Solução:* Implementação de rotinas para limpeza de dados obsoletos e transição de registros (ex: restrição por faixa de renda).
-* **Critérios múltiplos de priorização:** Necessidade de ordenação por atributos (renda, dependentes, tempo de espera e localização em área de risco). O foco é a escolha do algoritmo com a melhor complexidade computacional para cada cenário.
-* **Inconsistência de dados:** Informações incompletas entre diferentes órgãos demandam tratamento e validação prévia.
+Bairros como **Cidade Olímpica, Vila Maranhão e Anjo da Guarda** concentram famílias com renda *per capita* inferior a meio salário mínimo. Muitas delas dependem exclusivamente de programas de transferência de renda e doações para subsistência. Além disso, comunidades ribeirinhas e palafitárias, como as localizadas às margens dos **rios Anil e Bacanga**, sofrem com enchentes sazonais que agravam a escassez de alimentos e dificultam o acesso aos pontos de distribuição.
 
----
-
-## 2. Diário de Bordo: Erros e Resoluções
-O projeto iniciou com um erro de sintaxe no terminal (`no such option: -d`), causado por uma tentativa incorreta de instalação de bibliotecas.
-
-**Correções efetuadas:**
-1.  **Instalação de Dependências:** Instalamos a `python-dotenv` (para chaves de API) e a `googlemaps` (inteligência geográfica).
-2.  **Configuração de Ambiente:** Ajuste no VS Code para reconhecimento das bibliotecas no ambiente Python 3.13.
+### 🎯 Principais Desafios Resolvidos:
+- **Duplicidade de Dados:** Mitiga lacunas no atendimento da assistência social municipal.
+- **Inconsistência Geográfica:** Transforma inputs informais em endereços oficiais validados em tempo real.
+- **Volume de Cadastros:** Utiliza estruturas com complexidade $O(1)$ para processamento rápido e eficiente.
 
 ---
 
-## 3. Arquitetura de Software (Modularização)
-O sistema foi dividido em três pilares para garantir organização e escalabilidade:
+## 🏗️ 2. Arquitetura do Sistema (Modularização)
+O sistema adota uma arquitetura modular, dividindo claramente as responsabilidades:
 
-* **`GeolocIntelij.py` (Módulo de Serviço):** Comunicação exclusiva com a API do Google Cloud. *Obs: Atualmente identifica localização, mas a definição automática de "Zonas de Risco" ainda está em implementação.*
-* **`UnificIntdados.py` (Cérebro/Lógica):** Onde os dados são processados, unificados e organizados.
-* **`gráficos.py` (Visualização):** Transforma os dicionários de dados em informação visual para suporte à tomada de decisão.
-
----
-
-## 4. Lógica e Estrutura de Dados
-Para garantir a eficiência exigida pelo desafio, utilizamos:
-
-* **Dicionários Aninhados:** Estrutura `{ Cidade: { NIS: { Dados } } }`, permitindo acesso rápido com complexidade $O(1)$.
-* **Tuplas:** As coordenadas geográficas (lat, lng) são armazenadas em tuplas. Por serem imutáveis, garantem a segurança da localização validada. Além disso, o armazenamento numérico economiza memória RAM em comparação ao uso de strings.
-* **Sets (Conjuntos):** Uso de **Diferença de Conjuntos** para comparar "Bairros Alvo" vs. "Bairros Atendidos", identificando lacunas de assistência.
-
-> **Funcionamento da Geo:** Cada cidade é uma chave. Ao registrar uma família em São Luís, a API identifica as coordenadas reais (ex: -2.5231823), priorizando números para otimização de memória.
+| Módulo | Papel | Descrição das Responsabilidades |
+| :--- | :--- | :--- |
+| `UnificIntdados.py` | **O Maestro** (Cérebro) | Gerencia o fluxo principal, interface interativa (CLI) e orquestração. |
+| `GeolocIntelij.py` | **O Especialista** (API) | Executa geocoding, extração de coordenadas e monitoramento de cotas da Google Maps API. |
+| `relatorios.py` | **O Analista** (Dados) | Processa rankings de prioridade e gerencia a persistência no `cadastro_familias.json`. |
+| `gráficos.py` | **O Visualizador** (UI) | Utiliza `matplotlib` para gerar indicadores visuais da distribuição por município. |
 
 ---
 
-## 5. Integração com API Google Maps
-A lógica de Unificação Inteligente resolve a inconsistência de dados através de:
-1.  **Geocoding:** Converte endereços informais (ex: "Maiobão") em endereços oficiais.
-2.  **Entitização:** O Google Maps atua como validador para confirmar a jurisdição correta do bairro (São Luís, Paço do Lumiar ou São José de Ribamar).
+## ⚙️ 3. Lógica e Estruturas de Dados
+Para garantir a melhor complexidade computacional, o sistema utiliza:
+
+- **Dicionários Aninhados:** Estrutura matriz `{ Cidade: { NIS: { Dados } } }` garantindo acesso de complexidade temporal $O(1)$.
+- **Tuplas:** Coordenadas (lat, lng) são salvas em tuplas garantindo imutabilidade e economia de memória.
+- **Sets (Conjuntos):** Operações matemáticas de Diferença de Conjuntos para comparar "Bairros Alvo" vs "Bairros Atendidos".
+- **Listas de Listas:** Matrizes (`distribuicao_cestas`) para prever a sazonalidade e logística no período de chuvas (afetando diretamente as áreas ribeirinhas).
 
 ---
 
-## 6. Impacto da Implementação
-* **Unificação de Dados:** Resolve a dispersão de informações, tratando a Ilha de São Luís como uma unidade integrada.
-* **Matriz de Sazonalidade:** Através da estrutura `distribuicao_cestas` (Lista de Listas), o sistema prevê meses de maior exigência logística devido ao período de chuvas.
-* **Priorização Automática:** Filtro automático onde famílias com renda *per capita* inferior a R$ 200,00 são marcadas como "Prioridade Alta".
+## 🚀 4. Funcionalidades de Destaque
+- **Gavetas Dinâmicas:** Alocação de bairros sob demanda (`if bairro_real not in cadastro_geral:`), evitando travamentos por Erro de Chave.
+- **Priorização Automática:** Algoritmo que eleva a prioridade de famílias com renda *per capita* < R$ 200,00 e chefia feminina.
+- **Dashboard de Cotas:** Contador preventivo de requisições `.geocode()` no terminal para evitar cobranças indevidas na Google Cloud.
 
-7. Camada de Interação e Tratamento de Dados (Atualizado em 09/03/2026)
-Implementamos uma Interface de Linha de Comando (CLI) interativa que funciona como a porta de entrada do sistema. A grande inovação aqui é a Validação em Tempo Real: o sistema não aceita apenas o que o usuário digita; ele consulta o servidor da Google para confirmar se o local realmente existe antes de salvar.
+---
 
-🛠️ Fluxo de Operação (Loop de Eventos):
-Entrada Nominal: O usuário insere dados básicos (NIS, Nome, Endereço e Referência).
+## 📊 5. Referencial Teórico (Validação de Dados)
+A base de dados de testes foi calibrada com as pesquisas oficias mais recentes do Brasil e do Maranhão:
 
-Enriquecimento Geográfico: O módulo GeolocIntelij realiza o Geocoding do endereço + referência.
+1. **IBGE (PNAD Contínua):** Priorização de lares chefiados por mulheres (59,9% dos casos graves) e baixa escolaridade.
+2. **Rede PENSSAN (VIGISAN):** Linha de corte focada em renda *per capita* $\le$ meio salário mínimo e trabalho informal.
+3. **IMESC / Sedes:** Validação geográfica focada nas bacias dos rios Anil e Bacanga, Vila Maranhão, Anjo da Guarda e Cidade Olímpica.
 
-Setorização Automática: O sistema identifica o bairro oficial retornado pela API e o utiliza como "Chave de Destino" no banco de dados.
+---
 
-Persistência em Memória: Os dados são alocados no dicionário global cadastro_geral.
+## 💻 6. Como Executar o Projeto
 
-Visualização sob Demanda: A qualquer momento, o gestor pode solicitar o gráfico, que é gerado dinamicamente com os dados presentes na memória.
+### Pré-requisitos
+- Python 3.13+ instalado.
+- Chave de API válida do Google Cloud (Geocoding API habilitada).
 
-8. Lógica de "Gavetas Dinâmicas" e Resiliência
-Diferente de sistemas rígidos, nossa lógica de unificação utiliza Atribuição Dinâmica de Chaves.
-
-Problema: Se tentarmos cadastrar uma família em um bairro que não foi previsto inicialmente no código, o sistema comum travaria (Erro de Chave).
-
-Solução: Implementamos uma verificação de existência: if bairro_real not in cadastro_geral: cadastro_geral[bairro_real] = {}.
-
-Resultado: O software é resiliente. Ele cria novas frentes de assistência conforme a demanda geográfica identificada pela API, permitindo que bairros como Vila Maranhão ou Cidade Olímpica sejam monitorados com precisão, mesmo com variações na grafia do endereço original.
-
-9. Monitoramento e Controle de Recursos
-Como a Google Cloud opera sob regime de cotas, adicionamos um Dashboard de Terminal integrado ao GeolocIntelij.py:
-
-Contador de Requisições: Monitora cada chamada ao método .geocode().
-
-Alerta de Custo: Exibe avisos preventivos para evitar que o projeto ultrapasse os limites gratuitos de testes da Sprint.
-
-🛡️ Sistema de Segurança Alimentar - Grande Ilha (São Luís)
-📋 Sobre o Projeto
-Este sistema foi desenvolvido como uma solução de Inteligência Geográfica para o mapeamento da insegurança alimentar na Região Metropolitana de São Luís. O software utiliza a Google Maps API para normalizar endereços informais e convertê-los em dados estatísticos precisos, permitindo a priorização de famílias em zonas de alta vulnerabilidade.
-
-📅 Atualização Técnica (15/03/2026)
-Persistência de Dados: Implementação de armazenamento em JSON para garantir que os dados não sejam perdidos ao encerrar o sistema.
-
-Modularização Avançada: Separação total de responsabilidades entre Geocodificação, Lógica de Negócio, Visualização de Dados e Relatórios.
-
-Embasamento Estatístico: Dados fictícios de teste calibrados com a PNAD Contínua 2024 (IBGE) e o Inquérito VIGISAN (Rede PENSSAN).
-
-🏗️ Arquitetura do Sistema (Modular)
-O sistema é dividido em 4 módulos principais para facilitar a manutenção e escalabilidade:
-
-UnificIntdados.py (O Maestro): Gerencia o fluxo principal, menu de usuário e a orquestração entre os outros módulos.
-
-GeolocIntelij.py (O Especialista): Responsável por toda a comunicação com a Google Maps API, tratamento de erros de conexão e extração de coordenadas (lat/lng).
-
-relatorios.py (O Analista): Processa o volume de dados para gerar rankings de prioridade e gerencia a leitura/escrita no arquivo cadastro_familias.json.
-
-gráficos.py (O Visualizador): Utiliza Matplotlib para gerar indicadores visuais da distribuição de assistência por município.
-
-🛠️ Funcionalidades Principais
-Normalização Inteligente: Transforma inputs genéricos como "Rua do Peixe, Anjo da Guarda" em endereços oficiais validados pelo Google.
-
-Ranking de Necessidade: Algoritmo que identifica automaticamente quais bairros possuem maior adensamento de famílias em risco.
-
-Gestão Metropolitana: Suporte total para São Luís, Paço do Lumiar, São José de Ribamar e Raposa.
-
-Base de Dados JSON: Armazenamento estruturado que permite a portabilidade dos dados para futuras plataformas web ou dashboards.
-
-📊 Referencial Teórico e Validação de Dados
-O banco de dados de teste foi populado seguindo os perfis demográficos mais recentes:
-
-IBGE (2024): Foco em lares chefiados por mulheres (59,9% dos casos graves) e chefes de família com baixo nível de escolaridade.
-
-Rede PENSSAN: Foco em famílias com renda per capita inferior a meio salário-mínimo e trabalhadores informais.
-
-IMESC/Sedes: Priorização do Eixo Itaqui-Bacanga (Vila Maranhão/Anjo da Guarda) e a Zona Rural de São Luís.
+### Passo a passo
+1. Clone este repositório:
+   ```bash
+   git clone [https://github.com/seu-usuario/nome-do-repositorio.git](https://github.com/seu-usuario/nome-do-repositorio.git)
