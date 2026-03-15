@@ -14,7 +14,7 @@ from relatorios import exibir_ranking_bairros
 
 # Importe a função do arquivo de gráficos
 from gráficos import grafico_comparativo_cidades
-from mapas import gerar_mapa_interativo
+from visualizacao_mapa import gerar_mapa_interativo
 
 load_dotenv()
 gmaps_cliente = inicializar_gmaps()
@@ -121,8 +121,12 @@ def menu_principal():
             exibir_ranking_bairros(cadastro_geral)
 
         elif opcao == "4":
-            print("🌍 Processando coordenadas e gerando mapa geoespacial...")
-            gerar_mapa_interativo(cadastro_geral)
+            if any(cadastro_geral.values()):
+                print("🌍 Gerando mapa geoespacial...")
+                # Aqui ele vai usar a função do visualizacao_mapa.py
+                gerar_mapa_interativo(cadastro_geral) 
+            else:
+                print("⚠️ Sem dados para gerar o mapa.")
 
         elif opcao == "5":
             print("Encerrando sistema...")
