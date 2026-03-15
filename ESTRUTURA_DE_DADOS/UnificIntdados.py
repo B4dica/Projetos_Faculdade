@@ -76,9 +76,10 @@ def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
         cadastro_geral[bairro_real][id_f] = {
             "nome": nome,
             "cidade": dados_geo["cidade"],
-            "coords": (lat, lng),
-            "situacao": situacao_geo,      # Salva se é ribeirinha, palafita, etc.
-            "prioridade": nivel_prioridade # Define se o atendimento deve ser urgente
+            "bairro": bairro_real,         # <--- ADICIONE ESTA LINHA!
+            "coords": [lat, lng],          # Salve como lista [] para o JSON aceitar fácil
+            "situacao": situacao_geo,
+            "prioridade": nivel_prioridade
         }
         print(f"✅ {nome} cadastrado!")
         print(f"📢 Alerta de Zona: {situacao_geo} | Prioridade: {nivel_prioridade}")

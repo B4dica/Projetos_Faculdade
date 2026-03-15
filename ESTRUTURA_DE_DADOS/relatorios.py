@@ -1,36 +1,30 @@
 
 def exibir_ranking_bairros(cadastro_geral):
-    # Dicionário temporário para guardar a contagem. Ex: {"Centro": 5, "Maiobão": 12}
     contagem_bairros = {}
 
-    # 1. Varremos todas as cidades e seus respectivos cadastros
-    for cidade, cadastros_da_cidade in cadastro_geral.items():
+    for local, familias in cadastro_geral.items():
+        # Verifica se 'familias' é realmente um dicionário de cadastros
+        if isinstance(familias, dict):
+            for id_f, dados_familia in familias.items():
+                # .get() evita o KeyError: se não achar "bairro", retorna "Não Informado"
+                nome_do_bairro = dados_familia.get("bairro", "Não Informado")
 
-# Varremos todos os IDs dentro daquela cidade
-        for id_f, dados_familia in cadastros_da_cidade.items():
+                if nome_do_bairro not in contagem_bairros:
+                    contagem_bairros[nome_do_bairro] = 0
+                contagem_bairros[nome_do_bairro] += 1
 
-# Pegamos o nome do bairro dessa família específica
-            nome_do_bairro = dados_familia["bairro"]
-
-# Se o bairro ainda não está na nossa contagem, adicionamos com valor 0
-            if nome_do_bairro not in contagem_bairros:
-                contagem_bairros[nome_do_bairro] = 0
-
-# Adicionamos +1 família para este bairro
-            contagem_bairros[nome_do_bairro] += 1
-
-    # Se não houver nenhum dado, encerra a função
     if not contagem_bairros:
         print("⚠️ Nenhum dado cadastrado para gerar o ranking.")
         return
 
-    # 3. Ordenamos do maior número de cadastros (mais crítico) para o menor
     ranking_ordenado = sorted(contagem_bairros.items(), key=lambda item: item[1], reverse=True)
 
-    # 4. Exibimos o resultado formatado
     print("\n" + "="*45)
     print("🚨 RANKING DE NECESSIDADE POR BAIRRO 🚨")
     print("="* 45)
+    for posicao, (bairro, quantidade) in enumerate(ranking_ordenado, 1):
+        print(f"{posicao}º Lugar | {bairro}: {quantidade} famílias mapeadas")
+    print("="*45 + "\n")
 
 # enumerate(..., 1) nos ajuda a colocar a posição (1º, 2º, 3º...) automaticamente
     for posicao, (bairro, quantidade) in enumerate(ranking_ordenado, 1):

@@ -23,20 +23,35 @@ def grafico_comparativo_cidades(cadastro_geral):
 
 import folium
 
+
 def gerar_mapa_interativo(cadastro_geral):
-    # Centraliza o mapa em São Luís
     mapa = folium.Map(location=[-2.5307, -44.3068], zoom_start=12)
 
-    for bairro, familias in cadastro_geral.items():
-        for id_f, dados in familias.items():
-            lat, lng = dados['coords']
-            cor = 'red' if dados['prioridade'] == 'ALTA' else 'blue'
-            
-            folium.Marker(
-                [lat, lng],
-                popup=f"Família: {dados['nome']}<br>Zona: {dados['situacao']}",
-                icon=folium.Icon(color=cor, icon='info-sign')
-            ).add_to(mapa)
+    # --- DESENHANDO ZONAS DE RISCO ---
+    # Rio Anil
+    folium.Rectangle(
+        bounds=[[-2.535, -44.290], [-2.520, -44.260]],
+        color='red', fill=True, fill_opacity=0.2, popup='Risco: Rio Anil'
+    ).add_to(mapa)
+
+    # Rio Bacanga
+    folium.Rectangle(
+        bounds=[[-2.570, -44.310], [-2.545, -44.285]],
+        color='red', fill=True, fill_opacity=0.2, popup='Risco: Rio Bacanga'
+    ).add_to(mapa)
+
+    for local, familias in cadastro_geral.items():
+        if isinstance(familias, dict):
+            for id_f, dados in familias.items():
+                if "coords" in dados:
+                    lat, lng = dados['coords']
+                    cor = 'red' if dados.get('prioridade') == 'ALTA' else 'blue'
+                    
+                    folium.Marker(
+                        [lat, lng],
+                        popup=f"Família: {dados['nome']}<br>Bairro: {dados.get('bairro')}",
+                        icon=folium.Icon(color=cor, icon='info-sign')
+                    ).add_to(mapa)
 
     mapa.save("mapa_seguranca_alimentar.html")
-    print("🌐 Mapa interativo gerado: abra o arquivo 'mapa_seguranca_alimentar.html' no seu navegador.")
+    print("🌐 Mapa com Zonas de Risco gerado!")
