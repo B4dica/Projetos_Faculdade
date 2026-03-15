@@ -11,10 +11,10 @@ import os
 import json # <--- Importante estar aqui
 from dotenv import load_dotenv
 from relatorios import exibir_ranking_bairros
-from mapas import gerar_mapa_interativo
 
 # Importe a função do arquivo de gráficos
 from gráficos import grafico_comparativo_cidades
+from mapas import gerar_mapa_interativo
 
 load_dotenv()
 gmaps_cliente = inicializar_gmaps()
