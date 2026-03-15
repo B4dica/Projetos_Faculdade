@@ -20,3 +20,23 @@ def grafico_comparativo_cidades(cadastro_geral):
     # Ajusta para os nomes não sumirem
     plt.tight_layout()
     plt.show()
+
+import folium
+
+def gerar_mapa_interativo(cadastro_geral):
+    # Centraliza o mapa em São Luís
+    mapa = folium.Map(location=[-2.5307, -44.3068], zoom_start=12)
+
+    for bairro, familias in cadastro_geral.items():
+        for id_f, dados in familias.items():
+            lat, lng = dados['coords']
+            cor = 'red' if dados['prioridade'] == 'ALTA' else 'blue'
+            
+            folium.Marker(
+                [lat, lng],
+                popup=f"Família: {dados['nome']}<br>Zona: {dados['situacao']}",
+                icon=folium.Icon(color=cor, icon='info-sign')
+            ).add_to(mapa)
+
+    mapa.save("mapa_seguranca_alimentar.html")
+    print("🌐 Mapa interativo gerado: abra o arquivo 'mapa_seguranca_alimentar.html' no seu navegador.")

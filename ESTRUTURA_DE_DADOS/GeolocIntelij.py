@@ -3,6 +3,21 @@ from pathlib import Path
 from dotenv import load_dotenv
 import googlemaps
 from googlemaps import Client # Ajuda o VS Code a reconhecer os método
+# Coordenadas aproximadas baseadas na geografia de São Luís
+ZONAS_CRITICAS = {
+    "ZONA_ANIL": {
+        "nome": "Comunidade Ribeirinha - Rio Anil (Risco de Enchente)",
+        "limites": {"lat_min": -2.535, "lat_max": -2.520, "lng_min": -44.290, "lng_max": -44.260}
+    },
+    "ZONA_BACANGA": {
+        "nome": "Área de Palafitas - Rio Bacanga (Risco de Enchente)",
+        "limites": {"lat_min": -2.570, "lat_max": -2.545, "lng_min": -44.310, "lng_max": -44.285}
+    },
+    "VILA_MARANHAO": {
+        "nome": "Vila Maranhão (Vulnerabilidade Socioeconômica)",
+        "limites": {"lat_min": -2.620, "lat_max": -2.580, "lng_min": -44.370, "lng_max": -44.320}
+    }
+}
 
 contador_api = 0  # Variável global para contar as chamadas
 
@@ -111,6 +126,26 @@ def extrair_cidade_e_bairro(resultado_google): #5 ocorrência resultado_gooogle 
         "lat": dados['geometry']['location']['lat'],
         "lng": dados['geometry']['location']['lng']
     }
+def avaliar_prioridade_geografica(lat, lng):
+    """
+    Analisa se as coordenadas confirmadas pelo Google 
+    estão dentro de áreas de risco real ou vulnerabilidade extrema.
+    """
+    for zona_id, info in ZONAS_CRITICAS.items():
+        limites = info["limites"]
+        if limites["lat_min"] <= lat <= limites["lat_max"] and \
+           limites["lng_min"] <= lng <= limites["lng_max"]:
+            return info["nome"], "ALTA" # Retorna o nome da zona e o nível de prioridade
+            
+    return "Área Urbana Comum", "NORMAL"
+def gerar_url_mapa_estatico(lat, lng):
+    """
+    Gera um link de imagem do Google Maps para o endereço da família.
+    """
+    base_url = "https://maps.googleapis.com/maps/api/staticmap?"
+    config = f"center={lat},{lng}&zoom=16&size=600x300&maptype=roadmap"
+    marcador = f"&markers=color:red%7Clabel:F%7C{lat},{lng}"
+    return f"{base_url}{config}{marcador}&key={API_KEY}"
 
 # No final do arquivo GeolocIntelij.py
 if __name__ == "__main__":

@@ -4,7 +4,8 @@ from GeolocIntelij import (
     buscar_endereco, 
     extrair_dados_limpos,
     buscar_endereco_regiao_metropolitana, # Nova
-    extrair_cidade_e_bairro                # Nova
+    extrair_cidade_e_bairro,                # Nova
+    avaliar_prioridade_geografica
 )
 import os
 from dotenv import load_dotenv
@@ -28,22 +29,25 @@ def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
     dados_geo = extrair_cidade_e_bairro(res_bruto)
     
     if dados_geo:
-        # MUDANÇA AQUI: Usamos o bairro oficial retornado pelo Google
         bairro_real = dados_geo["bairro"]
+        lat, lng = dados_geo["lat"], dados_geo["lng"]
         
-        # Se o bairro não estiver no nosso dicionário inicial, nós o adicionamos
+        # --- NOVIDADE: MAPEAMENTO DE RISCO ---
+        situacao_geo, nivel_prioridade = avaliar_prioridade_geografica(lat, lng)
+        # -------------------------------------
+        
         if bairro_real not in cadastro_geral:
-            cadastro_geral[bairro_real] = {} # cadastro_geral = {bairro_real = {}}
+            cadastro_geral[bairro_real] = {}
             
-        cadastro_geral[bairro_real][id_f] = { #cadastro_geral = {bairro_real = {id_f = {}}}
+        cadastro_geral[bairro_real][id_f] = {
             "nome": nome,
-            "cidade": dados_geo["cidade"], # Guardamos a cidade dentro, mas a chave é o bairro
-            "coords": (dados_geo["lat"], dados_geo["lng"]), #cadastro_geral = {bairro_real = {id_f = {"nome":nome, "cidade": cidade}}}
-            "bairro":  bairro_real
+            "cidade": dados_geo["cidade"],
+            "coords": (lat, lng),
+            "situacao": situacao_geo,      # Salva se é ribeirinha, palafita, etc.
+            "prioridade": nivel_prioridade # Define se o atendimento deve ser urgente
         }
-        print(f"✅ {nome} cadastrado com sucesso no bairro: {bairro_real}")
-    else:
-        print(f"❌ Erro ao localizar: {endereco}")
+        print(f"✅ {nome} cadastrado!")
+        print(f"📢 Alerta de Zona: {situacao_geo} | Prioridade: {nivel_prioridade}")
 # ... (seus imports continuam iguais aqui) ...
 
 
@@ -68,9 +72,14 @@ def menu_principal():
 
         elif opcao == "2":
             if any(cadastro_geral.values()):
-                grafico_comparativo_cidades(cadastro_geral)
+                print("📊 Gerando visualização de dados...")
+                grafico_comparativo_cidades(cadastro_geral) # O gráfico que você já tem
+                
+                # CHAMADA NOVA PARA O FOLIUM:
+                from gráficos import gerar_mapa_interativo
+                gerar_mapa_interativo(cadastro_geral)
             else:
-                print("⚠️ Sem dados para gráficos.")
+                print("⚠️ Sem dados para gerar mapas.")
 
         elif opcao == "3": # Nova opção para chamar seu relatório
             exibir_ranking_bairros(cadastro_geral)
