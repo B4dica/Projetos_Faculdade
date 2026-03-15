@@ -1,10 +1,11 @@
 # 1. Importe todas as funções que você criou no arquivo Geo
-ffrom GeolocIntelij import (
+from GeolocIntelij import (
     inicializar_gmaps, 
     buscar_endereco, 
     extrair_dados_limpos,
     buscar_endereco_regiao_metropolitana,
-    extrair_cidade_e_bairro                
+    extrair_cidade_e_bairro,
+    avaliar_prioridade_geografica                
 )
 import os
 import json # <--- Importante estar aqui
@@ -59,7 +60,6 @@ except FileNotFoundError:
     }
 # -------------------------------------------------------------
 
-def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
     # ... (o resto do seu código continua normal daqui para baixo) ...
 def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
     res_bruto = buscar_endereco_regiao_metropolitana(gmaps_cliente, endereco, cidade_alvo)

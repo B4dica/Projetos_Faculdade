@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_470448bb527666509a8f5bcc9d76a35c {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_470448bb527666509a8f5bcc9d76a35c" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_470448bb527666509a8f5bcc9d76a35c = L.map(
+                "map_470448bb527666509a8f5bcc9d76a35c",
+                {
+                    center: [-2.5307, -44.3068],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_80f1087a504d942ab4429fb82cd78b45 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_80f1087a504d942ab4429fb82cd78b45.addTo(map_470448bb527666509a8f5bcc9d76a35c);
+        
+    
+            var marker_ea6bfc9e60f92af0e797f85f35343b01 = L.marker(
+                [-2.5278493, -44.3033239],
+                {
+}
+            ).addTo(map_470448bb527666509a8f5bcc9d76a35c);
+        
+    
+            var icon_29d227183582833b6a5f6d12b6cf68e8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1cab708a728ee28792921e7252e8dc1f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8e9acf9834a102465b339c3eb77aedfa = $(`<div id="html_8e9acf9834a102465b339c3eb77aedfa" style="width: 100.0%; height: 100.0%;">Família: Maria Silva<br>Zona: Área Urbana Comum</div>`)[0];
+                popup_1cab708a728ee28792921e7252e8dc1f.setContent(html_8e9acf9834a102465b339c3eb77aedfa);
+            
+        
+
+        marker_ea6bfc9e60f92af0e797f85f35343b01.bindPopup(popup_1cab708a728ee28792921e7252e8dc1f)
+        ;
+
+        
+    
+    
+                marker_ea6bfc9e60f92af0e797f85f35343b01.setIcon(icon_29d227183582833b6a5f6d12b6cf68e8);
+            
+    
+            var marker_f47cb5da10a3bec58265c99ddf30d1de = L.marker(
+                [-2.5392866, -44.1743995],
+                {
+}
+            ).addTo(map_470448bb527666509a8f5bcc9d76a35c);
+        
+    
+            var icon_6d67d25f6df69b497156b6a929781f9c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ba942acc8349c891fc46efab20c6061d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_46d66a0bd881dcbafcedee8c95dc9e61 = $(`<div id="html_46d66a0bd881dcbafcedee8c95dc9e61" style="width: 100.0%; height: 100.0%;">Família: José Ribamar<br>Zona: Área Urbana Comum</div>`)[0];
+                popup_ba942acc8349c891fc46efab20c6061d.setContent(html_46d66a0bd881dcbafcedee8c95dc9e61);
+            
+        
+
+        marker_f47cb5da10a3bec58265c99ddf30d1de.bindPopup(popup_ba942acc8349c891fc46efab20c6061d)
+        ;
+
+        
+    
+    
+                marker_f47cb5da10a3bec58265c99ddf30d1de.setIcon(icon_6d67d25f6df69b497156b6a929781f9c);
+            
+    
+            var marker_cf6608b8db1ae4df11dbbd8d7444a0f4 = L.marker(
+                [-2.4894791, -44.0385431],
+                {
+}
+            ).addTo(map_470448bb527666509a8f5bcc9d76a35c);
+        
+    
+            var icon_148802462cc3d3eee36c43edbf737523 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1ee8a816efedd5d721d6a5c66941c20b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a457e89a873b894bae6754e21472281b = $(`<div id="html_a457e89a873b894bae6754e21472281b" style="width: 100.0%; height: 100.0%;">Família: Ana Clara<br>Zona: Área Urbana Comum</div>`)[0];
+                popup_1ee8a816efedd5d721d6a5c66941c20b.setContent(html_a457e89a873b894bae6754e21472281b);
+            
+        
+
+        marker_cf6608b8db1ae4df11dbbd8d7444a0f4.bindPopup(popup_1ee8a816efedd5d721d6a5c66941c20b)
+        ;
+
+        
+    
+    
+                marker_cf6608b8db1ae4df11dbbd8d7444a0f4.setIcon(icon_148802462cc3d3eee36c43edbf737523);
+            
+</script>
+</html>
