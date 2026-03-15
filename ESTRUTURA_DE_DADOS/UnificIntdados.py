@@ -1,5 +1,5 @@
 # 1. Importe todas as funções que você criou no arquivo Geo
-ffrom GeolocIntelij import (
+from GeolocIntelij import (
     inicializar_gmaps, 
     buscar_endereco, 
     extrair_dados_limpos,
