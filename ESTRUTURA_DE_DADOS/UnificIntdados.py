@@ -141,12 +141,5 @@ except FileNotFoundError:
     print("⚠️ Primeiro acesso: Iniciando banco com dados de teste.")
 
 if __name__ == "__main__":
-    # COLOQUE OS TESTES AQUI DENTRO! 
-    # Assim eles rodam assim que você der o play, mas não quebram o código.
-    print("--- INICIALIZANDO TESTES AUTOMÁTICOS ---")
-    cadastrar_na_ilha("NIS-001", "Maria Silva", "Rua do Egito, Centro", "São Luís")
-    cadastrar_na_ilha("NIS-002", "José Ribamar", "Maiobão", "Paço do Lumiar")
-    cadastrar_na_ilha("NIS-003", "Ana Clara", "Praia de Panaquatira", "São José de Ribamar")
-    
-    # Depois dos testes, ele abre o menu para você usar
+    # O sistema já carregou os dados lá em cima, então é só abrir o menu direto!
     menu_principal()
