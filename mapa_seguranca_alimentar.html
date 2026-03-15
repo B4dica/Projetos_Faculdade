@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_470448bb527666509a8f5bcc9d76a35c {
+                #map_b57f07432a5ea34a55a6bc57cfedecb3 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -54,14 +54,14 @@
 <body>
     
     
-            <div class="folium-map" id="map_470448bb527666509a8f5bcc9d76a35c" ></div>
+            <div class="folium-map" id="map_b57f07432a5ea34a55a6bc57cfedecb3" ></div>
         
 </body>
 <script>
     
     
-            var map_470448bb527666509a8f5bcc9d76a35c = L.map(
-                "map_470448bb527666509a8f5bcc9d76a35c",
+            var map_b57f07432a5ea34a55a6bc57cfedecb3 = L.map(
+                "map_b57f07432a5ea34a55a6bc57cfedecb3",
                 {
                     center: [-2.5307, -44.3068],
                     crs: L.CRS.EPSG3857,
@@ -78,7 +78,7 @@
 
         
     
-            var tile_layer_80f1087a504d942ab4429fb82cd78b45 = L.tileLayer(
+            var tile_layer_7db5b829c2f547931b6a81971c0bce31 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -95,17 +95,63 @@
             );
         
     
-            tile_layer_80f1087a504d942ab4429fb82cd78b45.addTo(map_470448bb527666509a8f5bcc9d76a35c);
+            tile_layer_7db5b829c2f547931b6a81971c0bce31.addTo(map_b57f07432a5ea34a55a6bc57cfedecb3);
         
     
-            var marker_ea6bfc9e60f92af0e797f85f35343b01 = L.marker(
+            var rectangle_7152e41045ae18bb90e014858aeb40ab = L.rectangle(
+                [[-2.535, -44.29], [-2.52, -44.26]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_b57f07432a5ea34a55a6bc57cfedecb3);
+        
+    
+        var popup_cebf2d477348307b5025674cc595ee04 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b4d9d597db63e5da1426051cf3898f1f = $(`<div id="html_b4d9d597db63e5da1426051cf3898f1f" style="width: 100.0%; height: 100.0%;">Risco: Rio Anil</div>`)[0];
+                popup_cebf2d477348307b5025674cc595ee04.setContent(html_b4d9d597db63e5da1426051cf3898f1f);
+            
+        
+
+        rectangle_7152e41045ae18bb90e014858aeb40ab.bindPopup(popup_cebf2d477348307b5025674cc595ee04)
+        ;
+
+        
+    
+    
+            var rectangle_0afe72eda1a0f5c7698decc6c4c0399a = L.rectangle(
+                [[-2.57, -44.31], [-2.545, -44.285]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_b57f07432a5ea34a55a6bc57cfedecb3);
+        
+    
+        var popup_432e0081f21a464c7eca1aed17f75d1e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_be37c246424ad0b0c0fded3dd7709754 = $(`<div id="html_be37c246424ad0b0c0fded3dd7709754" style="width: 100.0%; height: 100.0%;">Risco: Rio Bacanga</div>`)[0];
+                popup_432e0081f21a464c7eca1aed17f75d1e.setContent(html_be37c246424ad0b0c0fded3dd7709754);
+            
+        
+
+        rectangle_0afe72eda1a0f5c7698decc6c4c0399a.bindPopup(popup_432e0081f21a464c7eca1aed17f75d1e)
+        ;
+
+        
+    
+    
+            var marker_ae0fd20a5cc2b781d967859e83a8684c = L.marker(
                 [-2.5278493, -44.3033239],
                 {
 }
-            ).addTo(map_470448bb527666509a8f5bcc9d76a35c);
+            ).addTo(map_b57f07432a5ea34a55a6bc57cfedecb3);
         
     
-            var icon_29d227183582833b6a5f6d12b6cf68e8 = L.AwesomeMarkers.icon(
+            var icon_67aefde41860f7948ea491b65aa9fd2c = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -116,34 +162,34 @@
             );
         
     
-        var popup_1cab708a728ee28792921e7252e8dc1f = L.popup({
+        var popup_a7e3c169d4794d00a3818ac2e7b9b63d = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_8e9acf9834a102465b339c3eb77aedfa = $(`<div id="html_8e9acf9834a102465b339c3eb77aedfa" style="width: 100.0%; height: 100.0%;">Família: Maria Silva<br>Zona: Área Urbana Comum</div>`)[0];
-                popup_1cab708a728ee28792921e7252e8dc1f.setContent(html_8e9acf9834a102465b339c3eb77aedfa);
+                var html_f5602d75ec6845fe1a814987f37a247f = $(`<div id="html_f5602d75ec6845fe1a814987f37a247f" style="width: 100.0%; height: 100.0%;">Família: Maria Silva<br>Bairro: None</div>`)[0];
+                popup_a7e3c169d4794d00a3818ac2e7b9b63d.setContent(html_f5602d75ec6845fe1a814987f37a247f);
             
         
 
-        marker_ea6bfc9e60f92af0e797f85f35343b01.bindPopup(popup_1cab708a728ee28792921e7252e8dc1f)
+        marker_ae0fd20a5cc2b781d967859e83a8684c.bindPopup(popup_a7e3c169d4794d00a3818ac2e7b9b63d)
         ;
 
         
     
     
-                marker_ea6bfc9e60f92af0e797f85f35343b01.setIcon(icon_29d227183582833b6a5f6d12b6cf68e8);
+                marker_ae0fd20a5cc2b781d967859e83a8684c.setIcon(icon_67aefde41860f7948ea491b65aa9fd2c);
             
     
-            var marker_f47cb5da10a3bec58265c99ddf30d1de = L.marker(
+            var marker_a80af6b1697d55d8ecbc37cc8f2b002e = L.marker(
                 [-2.5392866, -44.1743995],
                 {
 }
-            ).addTo(map_470448bb527666509a8f5bcc9d76a35c);
+            ).addTo(map_b57f07432a5ea34a55a6bc57cfedecb3);
         
     
-            var icon_6d67d25f6df69b497156b6a929781f9c = L.AwesomeMarkers.icon(
+            var icon_7c8dbec001243c7506bceb62a5a2b1de = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -154,34 +200,34 @@
             );
         
     
-        var popup_ba942acc8349c891fc46efab20c6061d = L.popup({
+        var popup_6dc66f2d1535fa5d6b8031c731cdaef5 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_46d66a0bd881dcbafcedee8c95dc9e61 = $(`<div id="html_46d66a0bd881dcbafcedee8c95dc9e61" style="width: 100.0%; height: 100.0%;">Família: José Ribamar<br>Zona: Área Urbana Comum</div>`)[0];
-                popup_ba942acc8349c891fc46efab20c6061d.setContent(html_46d66a0bd881dcbafcedee8c95dc9e61);
+                var html_7059ea009692597dde9f98b46df02749 = $(`<div id="html_7059ea009692597dde9f98b46df02749" style="width: 100.0%; height: 100.0%;">Família: José Ribamar<br>Bairro: None</div>`)[0];
+                popup_6dc66f2d1535fa5d6b8031c731cdaef5.setContent(html_7059ea009692597dde9f98b46df02749);
             
         
 
-        marker_f47cb5da10a3bec58265c99ddf30d1de.bindPopup(popup_ba942acc8349c891fc46efab20c6061d)
+        marker_a80af6b1697d55d8ecbc37cc8f2b002e.bindPopup(popup_6dc66f2d1535fa5d6b8031c731cdaef5)
         ;
 
         
     
     
-                marker_f47cb5da10a3bec58265c99ddf30d1de.setIcon(icon_6d67d25f6df69b497156b6a929781f9c);
+                marker_a80af6b1697d55d8ecbc37cc8f2b002e.setIcon(icon_7c8dbec001243c7506bceb62a5a2b1de);
             
     
-            var marker_cf6608b8db1ae4df11dbbd8d7444a0f4 = L.marker(
+            var marker_12e8e066188edd49b6e461b018570780 = L.marker(
                 [-2.4894791, -44.0385431],
                 {
 }
-            ).addTo(map_470448bb527666509a8f5bcc9d76a35c);
+            ).addTo(map_b57f07432a5ea34a55a6bc57cfedecb3);
         
     
-            var icon_148802462cc3d3eee36c43edbf737523 = L.AwesomeMarkers.icon(
+            var icon_543f6c409c5d13c3269614b2b7a518c3 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -192,24 +238,24 @@
             );
         
     
-        var popup_1ee8a816efedd5d721d6a5c66941c20b = L.popup({
+        var popup_89907b091aa85448928b4db05c5bcae3 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_a457e89a873b894bae6754e21472281b = $(`<div id="html_a457e89a873b894bae6754e21472281b" style="width: 100.0%; height: 100.0%;">Família: Ana Clara<br>Zona: Área Urbana Comum</div>`)[0];
-                popup_1ee8a816efedd5d721d6a5c66941c20b.setContent(html_a457e89a873b894bae6754e21472281b);
+                var html_2666491f42c11661027859008b3ac1c1 = $(`<div id="html_2666491f42c11661027859008b3ac1c1" style="width: 100.0%; height: 100.0%;">Família: Ana Clara<br>Bairro: None</div>`)[0];
+                popup_89907b091aa85448928b4db05c5bcae3.setContent(html_2666491f42c11661027859008b3ac1c1);
             
         
 
-        marker_cf6608b8db1ae4df11dbbd8d7444a0f4.bindPopup(popup_1ee8a816efedd5d721d6a5c66941c20b)
+        marker_12e8e066188edd49b6e461b018570780.bindPopup(popup_89907b091aa85448928b4db05c5bcae3)
         ;
 
         
     
     
-                marker_cf6608b8db1ae4df11dbbd8d7444a0f4.setIcon(icon_148802462cc3d3eee36c43edbf737523);
+                marker_12e8e066188edd49b6e461b018570780.setIcon(icon_543f6c409c5d13c3269614b2b7a518c3);
             
 </script>
 </html>
