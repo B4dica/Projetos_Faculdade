@@ -11,6 +11,7 @@ import os
 import json # <--- Importante estar aqui
 from dotenv import load_dotenv
 from relatorios import exibir_ranking_bairros
+from mapas import gerar_mapa_interativo
 
 # Importe a função do arquivo de gráficos
 from gráficos import grafico_comparativo_cidades
@@ -93,8 +94,26 @@ def menu_principal():
         print("\n--- SISTEMA DE SEGURANÇA ALIMENTAR - GRANDE ILHA ---")
         print("1. Cadastrar Nova Família")
         print("2. Gerar Gráfico de Assistência")
-        print("3. Exibir Ranking de Bairros (NOVO)") # Adicione esta linha
+        print("3. Exibir Ranking de Bairros") 
         print("4. Sair")
+        print("5. Gerar Mapa Interativo (NOVO)") # <--- ADICIONE AQUI
+        
+        opcao = input("Escolha uma opção: ")
+
+        # ... (as opções 1, 2 e 3 ficam iguais) ...
+
+        elif opcao == "4": 
+            print("Encerrando sistema...")
+            from relatorios import salvar_dados_json
+            salvar_dados_json(cadastro_geral)
+            break
+            
+        elif opcao == "5": # <--- ADICIONE ESTE BLOCO AQUI
+            print("A gerar visualização geoespacial...")
+            gerar_mapa_interativo(cadastro_geral)
+            
+        else:
+            print("❌ Opção inválida!")
         
         opcao = input("Escolha uma opção: ")
 
