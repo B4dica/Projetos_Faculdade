@@ -10,6 +10,7 @@ from GeolocIntelij import (
 import os
 from dotenv import load_dotenv
 from relatorios import exibir_ranking_bairros
+import json
 
 # 2. Importe a função do arquivo de gráficos
 from gráficos import grafico_comparativo_cidades
@@ -92,6 +93,16 @@ def menu_principal():
             break
         else:
             print("❌ Opção inválida!")
+
+
+# Tenta ler os dados salvos quando o programa inicia
+try:
+    with open("cadastro_familias.json", "r", encoding="utf-8") as arquivo:
+        cadastro_geral = json.load(arquivo)
+        print("📦 Memória restaurada: Dados do JSON carregados com sucesso!")
+except FileNotFoundError:
+    # Se for a primeira vez rodando e o arquivo não existir, usa dados de teste
+    print("⚠️ Primeiro acesso: Iniciando banco com dados de teste.")
 
 if __name__ == "__main__":
     # COLOQUE OS TESTES AQUI DENTRO! 
