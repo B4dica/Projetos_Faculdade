@@ -1,31 +1,66 @@
 # 1. Importe todas as funções que você criou no arquivo Geo
-from GeolocIntelij import (
+ffrom GeolocIntelij import (
     inicializar_gmaps, 
     buscar_endereco, 
     extrair_dados_limpos,
-    buscar_endereco_regiao_metropolitana, # Nova
-    extrair_cidade_e_bairro,                # Nova
-    avaliar_prioridade_geografica
+    buscar_endereco_regiao_metropolitana,
+    extrair_cidade_e_bairro                
 )
 import os
-import json
+import json # <--- Importante estar aqui
 from dotenv import load_dotenv
 from relatorios import exibir_ranking_bairros
-import json
 
-# 2. Importe a função do arquivo de gráficos
+# Importe a função do arquivo de gráficos
 from gráficos import grafico_comparativo_cidades
 
 load_dotenv()
-gmaps_cliente = inicializar_gmaps() # Use o nome gmaps_cliente para ser consistente
+gmaps_cliente = inicializar_gmaps()
 
-# Estrutura de dados para as 3 cidades
-cadastro_geral = {
-    "Cidade Olímpica": {},
-    "Vila Maranhão": {},
-    "Anjo da Guarda": {} 
-}
+# -------------------------------------------------------------
+# LÓGICA DE CARREGAMENTO (A "Memória" do Sistema)
+# -------------------------------------------------------------
+# Tenta ler os dados salvos quando o programa inicia
+try:
+    with open("cadastro_familias.json", "r", encoding="utf-8") as arquivo:
+        cadastro_geral = json.load(arquivo)
+        print("📦 Memória restaurada: Dados do JSON carregados com sucesso!")
+except FileNotFoundError:
+    # Se for a primeira vez rodando e o arquivo não existir, usa dados de teste
+    print("⚠️ Primeiro acesso: Iniciando banco com dados de teste.")
+    cadastro_geral = {
+        "Centro": {
+            "NIS-001": {
+                "nome": "Maria Silva",
+                "cidade": "São Luís",
+                "coords": [-2.5278493, -44.3033239],
+                "situacao": "Área Urbana Comum",
+                "prioridade": "NORMAL"
+            }
+        },
+        "Maiobão": {
+            "NIS-002": {
+                "nome": "José Ribamar",
+                "cidade": "Paço do Lumiar",
+                "coords": [-2.5392866, -44.1743995],
+                "situacao": "Área Urbana Comum",
+                "prioridade": "NORMAL"
+            }
+        },
+        "Não Identificado": {
+            "NIS-003": {
+                "nome": "Ana Clara",
+                "cidade": "São José de Ribamar",
+                "coords": [-2.4894791, -44.0385431],
+                "situacao": "Área Urbana Comum",
+                "prioridade": "NORMAL"
+            }
+        }
+    }
+# -------------------------------------------------------------
 
+def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
+    # ... (o resto do seu código continua normal daqui para baixo) ...
 def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
     res_bruto = buscar_endereco_regiao_metropolitana(gmaps_cliente, endereco, cidade_alvo)
     dados_geo = extrair_cidade_e_bairro(res_bruto)
