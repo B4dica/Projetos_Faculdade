@@ -34,27 +34,24 @@ except FileNotFoundError:
             "NIS-001": {
                 "nome": "Maria Silva",
                 "cidade": "São Luís",
-                "coords": [-2.5278493, -44.3033239],
-                "situacao": "Área Urbana Comum",
-                "prioridade": "NORMAL"
+                "bairro": "Centro", # <--- Faltava isso aqui!
+                "coords": [-2.5278493, -44.3033239]
             }
         },
         "Maiobão": {
             "NIS-002": {
                 "nome": "José Ribamar",
                 "cidade": "Paço do Lumiar",
-                "coords": [-2.5392866, -44.1743995],
-                "situacao": "Área Urbana Comum",
-                "prioridade": "NORMAL"
+                "bairro": "Maiobão", # <--- Faltava isso aqui!
+                "coords": [-2.5392866, -44.1743995]
             }
         },
         "Não Identificado": {
             "NIS-003": {
                 "nome": "Ana Clara",
                 "cidade": "São José de Ribamar",
-                "coords": [-2.4894791, -44.0385431],
-                "situacao": "Área Urbana Comum",
-                "prioridade": "NORMAL"
+                "bairro": "Não Identificado", # <--- Faltava isso aqui!
+                "coords": [-2.4894791, -44.0385431]
             }
         }
     }
