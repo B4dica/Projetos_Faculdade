@@ -5,7 +5,7 @@ from GeolocIntelij import (
     extrair_dados_limpos,
     buscar_endereco_regiao_metropolitana,
     extrair_cidade_e_bairro,
-    avaliar_prioridade_geografica                
+    avaliar_prioridade_geografica,                
 )
 import os
 import json # <--- Importante estar aqui
@@ -133,37 +133,6 @@ def menu_principal():
         else:
             print("❌ Opção inválida! Por favor, digite um número de 1 a 5.")
         
-        opcao = input("Escolha uma opção: ")
-
-        if opcao == "1":
-            id_f = input("NIS/CPF da Família: ")
-            nome = input("Nome do Responsável: ")
-            endereco = input("Endereço (Rua, nº, Ref): ")
-            cidade_alvo = input("Cidade de Referência: ")
-            cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo)
-
-        elif opcao == "2":
-            if any(cadastro_geral.values()):
-                print("📊 Gerando visualização de dados...")
-                grafico_comparativo_cidades(cadastro_geral) # O gráfico que você já tem
-                
-                # CHAMADA NOVA PARA O FOLIUM:
-                from gráficos import gerar_mapa_interativo
-                gerar_mapa_interativo(cadastro_geral)
-            else:
-                print("⚠️ Sem dados para gerar mapas.")
-
-        elif opcao == "3": # Nova opção para chamar seu relatório
-            exibir_ranking_bairros(cadastro_geral)
-
-        elif opcao == "4": # Supondo que 4 seja o Sair
-            print("Encerrando sistema...")
-            # Chamada para salvar o JSON antes de fechar tudo
-            from relatorios import salvar_dados_json # Se você colocou a função lá
-            salvar_dados_json(cadastro_geral)
-            break
-        else:
-            print("❌ Opção inválida!")
 
 
 # Tenta ler os dados salvos quando o programa inicia
