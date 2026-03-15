@@ -91,29 +91,47 @@ def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
 
 def menu_principal():
     while True:
-        print("\n--- SISTEMA DE SEGURANÇA ALIMENTAR - GRANDE ILHA ---")
+        print("\n" + "="*50)
+        print("🍽️  SISTEMA DE SEGURANÇA ALIMENTAR - GRANDE ILHA")
+        print("="*50)
         print("1. Cadastrar Nova Família")
         print("2. Gerar Gráfico de Assistência")
-        print("3. Exibir Ranking de Bairros") 
-        print("4. Sair")
-        print("5. Gerar Mapa Interativo (NOVO)") # <--- ADICIONE AQUI
+        print("3. Exibir Ranking de Bairros")
+        print("4. Gerar Mapa Interativo (Zonas de Risco) 🗺️")
+        print("5. Sair e Salvar 💾")
+        print("="*50)
         
         opcao = input("Escolha uma opção: ")
 
-        # ... (as opções 1, 2 e 3 ficam iguais) ...
+        if opcao == "1":
+            id_f = input("NIS/CPF da Família: ")
+            nome = input("Nome do Responsável: ")
+            endereco = input("Endereço (Rua, nº, Ref): ")
+            cidade_alvo = input("Cidade de Referência: ")
+            cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo)
 
-        elif opcao == "4": 
+        elif opcao == "2":
+            # Verifica se existe pelo menos uma cidade com dados cadastrados
+            if any(cadastro_geral.values()):
+                grafico_comparativo_cidades(cadastro_geral)
+            else:
+                print("⚠️ Sem dados cadastrados para gerar gráficos.")
+
+        elif opcao == "3":
+            exibir_ranking_bairros(cadastro_geral)
+
+        elif opcao == "4":
+            print("🌍 Processando coordenadas e gerando mapa geoespacial...")
+            gerar_mapa_interativo(cadastro_geral)
+
+        elif opcao == "5":
             print("Encerrando sistema...")
             from relatorios import salvar_dados_json
             salvar_dados_json(cadastro_geral)
             break
             
-        elif opcao == "5": # <--- ADICIONE ESTE BLOCO AQUI
-            print("A gerar visualização geoespacial...")
-            gerar_mapa_interativo(cadastro_geral)
-            
         else:
-            print("❌ Opção inválida!")
+            print("❌ Opção inválida! Por favor, digite um número de 1 a 5.")
         
         opcao = input("Escolha uma opção: ")
 
