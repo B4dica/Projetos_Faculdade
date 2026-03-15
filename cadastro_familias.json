@@ -1,7 +1,19 @@
 {
     "Cidade Olímpica": {},
     "Vila Maranhão": {},
-    "Anjo da Guarda": {},
+    "Anjo da Guarda": {
+        "345354": {
+            "nome": "Garcia",
+            "cidade": "São Luís",
+            "bairro": "Anjo da Guarda",
+            "coords": [
+                -2.5658914,
+                -44.3299569
+            ],
+            "situacao": "Área Urbana Comum",
+            "prioridade": "NORMAL"
+        }
+    },
     "Centro": {
         "NIS-001": {
             "nome": "Maria Silva",
