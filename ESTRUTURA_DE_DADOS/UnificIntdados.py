@@ -8,6 +8,7 @@ from GeolocIntelij import (
     avaliar_prioridade_geografica
 )
 import os
+import json
 from dotenv import load_dotenv
 from relatorios import exibir_ranking_bairros
 
