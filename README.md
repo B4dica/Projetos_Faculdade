@@ -25,7 +25,7 @@ O projeto foi estruturado seguindo o princípio da responsabilidade única, faci
 ## ⚙️ 3. Decisões Técnicas e Estrutura de Dados
 
 * **Persistência de Dados:** Uso de arquivos **JSON** com tratamento de exceção (`try/except`). Isso garante que os dados não sejam perdidos ao fechar o programa.
-* **Dicionários Aninhados:** A estrutura `{Bairro: {NIS: Dados}}` garante busca e inserção rápidas ($O(1)$), fundamental para o crescimento do banco de dados.
+* **Dicionários Aninhados:** A estrutura `{Bairro: {NIS: Dados}}` garante busca e inserção rápidas (O(1)), fundamental para o crescimento do banco de dados.
 * **Geoprocessamento:** O sistema utiliza cálculos de limites (latitude/longitude) para detectar se um endereço validado pelo Google entra em uma zona de monitoramento crítico.
 
 ## 🚀 4. Funcionalidades Implementadas
