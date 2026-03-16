@@ -1,18 +1,5 @@
 {
     "Cidade Olímpica": {
-        "Cidade Olímpica": {
-            "NIS-010": {
-                "nome": "Família Silva - Unid. 203",
-                "cidade": "São Luís",
-                "bairro": "Cidade Olímpica",
-                "coords": [
-                    -2.578,
-                    -44.205
-                ],
-                "situacao": "Área de Vulnerabilidade Social",
-                "prioridade": "ALTA"
-            }
-        },
         "NIS-010": {
             "nome": "Família Silva - Unid. 203",
             "cidade": "São Luís",
@@ -26,19 +13,6 @@
         }
     },
     "Vila Maranhão": {
-        "Vila Maranhão": {
-            "NIS-012": {
-                "nome": "Maria José Pereira",
-                "cidade": "São Luís",
-                "bairro": "Vila Maranhão",
-                "coords": [
-                    -2.633,
-                    -44.322
-                ],
-                "situacao": "Área Industrial/Residencial Risco",
-                "prioridade": "ALTA"
-            }
-        },
         "NIS-012": {
             "nome": "Maria José Pereira",
             "cidade": "São Luís",
@@ -52,18 +26,16 @@
         }
     },
     "Anjo da Guarda": {
-        "Anjo da Guarda": {
-            "NIS-011": {
-                "nome": "João dos Santos",
-                "cidade": "São Luís",
-                "bairro": "Anjo da Guarda",
-                "coords": [
-                    -2.558,
-                    -44.315
-                ],
-                "situacao": "Área de Vulnerabilidade Social",
-                "prioridade": "MÉDIA"
-            }
+        "NIS-011": {
+            "nome": "João dos Santos",
+            "cidade": "São Luís",
+            "bairro": "Anjo da Guarda",
+            "coords": [
+                -2.558,
+                -44.315
+            ],
+            "situacao": "Área de Vulnerabilidade Social",
+            "prioridade": "MÉDIA"
         },
         "345354": {
             "nome": "Garcia",
@@ -81,6 +53,7 @@
         "NIS-001": {
             "nome": "Maria Silva",
             "cidade": "São Luís",
+            "bairro": "Centro",
             "coords": [
                 -2.5278493,
                 -44.3033239
@@ -89,7 +62,7 @@
             "prioridade": "NORMAL"
         }
     },
-    "Alemanha (Rio Anil)": {
+    "Alemanha": {
         "NIS-013": {
             "nome": "Comunidade Ribeirinha Anil",
             "cidade": "São Luís",
@@ -102,7 +75,7 @@
             "prioridade": "ALTA"
         }
     },
-    "Coroadinho (Bacanga)": {
+    "Coroadinho": {
         "NIS-014": {
             "nome": "Família das Palafitas",
             "cidade": "São Luís",
@@ -116,17 +89,16 @@
         }
     },
     "Maiobão": {
-        "Maiobão": {
-            "NIS-002": {
-                "nome": "José Ribamar",
-                "cidade": "Paço do Lumiar",
-                "coords": [
-                    -2.5392866,
-                    -44.1743995
-                ],
-                "situacao": "Área Urbana Comum",
-                "prioridade": "NORMAL"
-            }
+        "NIS-002": {
+            "nome": "José Ribamar",
+            "cidade": "Paço do Lumiar",
+            "bairro": "Maiobão",
+            "coords": [
+                -2.5392866,
+                -44.1743995
+            ],
+            "situacao": "Área Urbana Comum",
+            "prioridade": "NORMAL"
         },
         "NIS-015": {
             "nome": "Ricardo Oliveira",
