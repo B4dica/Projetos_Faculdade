@@ -136,18 +136,7 @@ def menu_principal():
             
         else:
             print("❌ Opção inválida! Por favor, digite um número de 1 a 5.")
-        
-
-
-# Tenta ler os dados salvos quando o programa inicia
-try:
-    with open("cadastro_familias.json", "r", encoding="utf-8") as arquivo:
-        cadastro_geral = json.load(arquivo)
-        print("📦 Memória restaurada: Dados do JSON carregados com sucesso!")
-except FileNotFoundError:
-    # Se for a primeira vez rodando e o arquivo não existir, usa dados de teste
-    print("⚠️ Primeiro acesso: Iniciando banco com dados de teste.")
-
+    
 if __name__ == "__main__":
     # O sistema já carregou os dados lá em cima, então é só abrir o menu direto!
     menu_principal()
