@@ -17,7 +17,7 @@ def exibir_ranking_bairros(cadastro_geral):
         print("⚠️ Nenhum dado cadastrado para gerar o ranking.")
         return
 
-    ranking_ordenado = sorted(contagem_bairros.items(), key=lambda item: item[1], reverse=True)
+    ranking_ordenado = sorted(contagem_bairros.items(), key=lambda item: item[1], reverse=True) #O(n log n)
 
     print("\n" + "="*45)
     print("🚨 RANKING DE NECESSIDADE POR BAIRRO 🚨")

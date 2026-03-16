@@ -1,23 +1,46 @@
 import matplotlib.pyplot as plt
 
 def grafico_comparativo_cidades(cadastro_geral):
-    # Filtra apenas cidades que possuem alguém cadastrado para o gráfico não ficar vazio
-    cidades = [c for c in cadastro_geral.keys() if len(cadastro_geral[c]) > 0]
-    totais = [len(cadastro_geral[c]) for c in cidades]
-    
-    if not totais:
-        print("⚠️ Sem dados para gerar o gráfico comparativo.")
+    nomes_bairros = []
+    contagem_familias = []
+
+    # 1. Coleta os dados garantindo que estamos contando os NIS
+    for bairro, familias in cadastro_geral.items():
+        if isinstance(familias, dict):
+            quantidade = len(familias)
+            if quantidade > 0: # Só adiciona ao gráfico se tiver gente
+                nomes_bairros.append(bairro)
+                contagem_familias.append(quantidade)
+
+    if not contagem_familias:
+        print("⚠️ Sem dados válidos para gerar o gráfico.")
         return
 
-    plt.figure(figsize=(8, 5))
-    cores = ['#1f77b4', '#ff7f0e', '#2ca02c'] # Cores distintas
+    # 2. Gera o gráfico
+    plt.figure(figsize=(10, 6))
+    # Cores repetidas caso tenha muitos bairros
+    cores = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2'] * 2
     
-    plt.bar(cidades, totais, color=cores[:len(cidades)])
-    plt.title('Distribuição de Assistência na Região Metropolitana')
-    plt.ylabel('Quantidade de Famílias')
-    plt.xlabel('Municípios')
+    barras = plt.bar(nomes_bairros, contagem_familias, color=cores[:len(nomes_bairros)])
     
-    # Ajusta para os nomes não sumirem
+    # 3. Adiciona os números em cima das barras (com trava de segurança para o erro)
+    for barra in barras:
+        yval = barra.get_height()
+        if yval > 0:
+            plt.text(
+                barra.get_x() + barra.get_width()/2, 
+                yval + 0.05, 
+                f'{int(yval)}', # Formata como string diretamente
+                ha='center', 
+                va='bottom', 
+                fontweight='bold',
+                fontsize=11
+            )
+
+    plt.title('Distribuição de Famílias por Bairro', fontsize=14)
+    plt.ylabel('Quantidade de Famílias', fontsize=12)
+    plt.ylim(0, max(contagem_familias) + 1) # Dá um espaço no topo para o número não sumir
+    plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     plt.show()
 
