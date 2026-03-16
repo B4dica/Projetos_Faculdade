@@ -1,115 +1,75 @@
 {
     "Cidade Olímpica": {
-        "NIS-010": {
-            "nome": "Família Silva - Unid. 203",
+        "NIS-100": {
+            "nome": "Maria de Jesus",
             "cidade": "São Luís",
             "bairro": "Cidade Olímpica",
-            "coords": [
-                -2.578,
-                -44.205
-            ],
-            "situacao": "Área de Vulnerabilidade Social",
+            "coords": [-2.578, -44.205],
             "prioridade": "ALTA"
+        },
+        "NIS-101": {
+            "nome": "Família Silva Pereira",
+            "cidade": "São Luís",
+            "bairro": "Cidade Olímpica",
+            "coords": [-2.580, -44.210],
+            "prioridade": "ALTA"
+        },
+        "NIS-102": {
+            "nome": "Francisca das Chagas",
+            "cidade": "São Luís",
+            "bairro": "Cidade Olímpica",
+            "coords": [-2.575, -44.200],
+            "prioridade": "NORMAL"
         }
     },
     "Vila Maranhão": {
-        "NIS-012": {
-            "nome": "Maria José Pereira",
+        "NIS-200": {
+            "nome": "Antônia dos Santos",
             "cidade": "São Luís",
             "bairro": "Vila Maranhão",
-            "coords": [
-                -2.633,
-                -44.322
-            ],
-            "situacao": "Área Industrial/Residencial Risco",
+            "coords": [-2.633, -44.322],
+            "prioridade": "ALTA"
+        },
+        "NIS-201": {
+            "nome": "Raimundo Nonato",
+            "cidade": "São Luís",
+            "bairro": "Vila Maranhão",
+            "coords": [-2.635, -44.325],
             "prioridade": "ALTA"
         }
     },
     "Anjo da Guarda": {
-        "NIS-011": {
-            "nome": "João dos Santos",
+        "NIS-300": {
+            "nome": "João de Deus",
             "cidade": "São Luís",
             "bairro": "Anjo da Guarda",
-            "coords": [
-                -2.558,
-                -44.315
-            ],
-            "situacao": "Área de Vulnerabilidade Social",
-            "prioridade": "MÉDIA"
+            "coords": [-2.558, -44.315],
+            "prioridade": "ALTA"
         },
-        "345354": {
-            "nome": "Garcia",
+        "NIS-301": {
+            "nome": "Maria José Pereira",
             "cidade": "São Luís",
             "bairro": "Anjo da Guarda",
-            "coords": [
-                -2.5658914,
-                -44.3299569
-            ],
-            "situacao": "Área Urbana Comum",
-            "prioridade": "NORMAL"
-        }
-    },
-    "Centro": {
-        "NIS-001": {
-            "nome": "Maria Silva",
-            "cidade": "São Luís",
-            "bairro": "Centro",
-            "coords": [
-                -2.5278493,
-                -44.3033239
-            ],
-            "situacao": "Área Urbana Comum",
+            "coords": [-2.560, -44.310],
             "prioridade": "NORMAL"
         }
     },
     "Alemanha": {
-        "NIS-013": {
-            "nome": "Comunidade Ribeirinha Anil",
+        "NIS-400": {
+            "nome": "Comunidade Rio Anil",
             "cidade": "São Luís",
             "bairro": "Alemanha",
-            "coords": [
-                -2.528,
-                -44.275
-            ],
-            "situacao": "Área de Alagamento (Rio Anil)",
-            "prioridade": "ALTA"
-        }
-    },
-    "Coroadinho": {
-        "NIS-014": {
-            "nome": "Família das Palafitas",
-            "cidade": "São Luís",
-            "bairro": "Coroadinho",
-            "coords": [
-                -2.56,
-                -44.295
-            ],
-            "situacao": "Área de Alagamento (Rio Bacanga)",
+            "coords": [-2.528, -44.275],
             "prioridade": "ALTA"
         }
     },
     "Maiobão": {
-        "NIS-002": {
+        "NIS-500": {
             "nome": "José Ribamar",
             "cidade": "Paço do Lumiar",
             "bairro": "Maiobão",
-            "coords": [
-                -2.5392866,
-                -44.1743995
-            ],
-            "situacao": "Área Urbana Comum",
+            "coords": [-2.539, -44.174],
             "prioridade": "NORMAL"
-        },
-        "NIS-015": {
-            "nome": "Ricardo Oliveira",
-            "cidade": "Paço do Lumiar",
-            "bairro": "Maiobão",
-            "coords": [
-                -2.539,
-                -44.174
-            ],
-            "situacao": "Zona Urbana Metropolitana",
-            "prioridade": "BAIXA"
         }
     }
 }
