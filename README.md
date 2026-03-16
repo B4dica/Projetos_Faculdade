@@ -2,7 +2,7 @@
 
 **Foco:** Segurança Alimentar na Região Metropolitana de São Luís
 
-**Status:** Sprint 1 Finalizada ✅ | **Data:** 15 de Março de 2026
+**Status:** Sprint 2 Finalizada ✅ | **Data:** 15 de Março de 2026
 
 ## 📖 1. Visão Geral e Contexto
 
