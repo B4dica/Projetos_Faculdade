@@ -1,60 +1,28 @@
-
+import os
+import json 
+from dotenv import load_dotenv
 from GeolocIntelij import (
     inicializar_gmaps, 
-    buscar_endereco, 
-    extrair_dados_limpos,
     buscar_endereco_regiao_metropolitana,
     extrair_cidade_e_bairro,
     avaliar_prioridade_geografica,                
 )
-import os
-import json 
-from dotenv import load_dotenv
-from relatorios import exibir_ranking_bairros
-
-
+from relatorios import exibir_ranking_bairros, salvar_dados_json
 from gráficos import grafico_comparativo_cidades
 from visualizacao_mapa import gerar_mapa_interativo
 
 load_dotenv()
 gmaps_cliente = inicializar_gmaps()
 
-
+# --- CARREGAMENTO DE DADOS ---
 try:
     with open("cadastro_familias.json", "r", encoding="utf-8") as arquivo:
         cadastro_geral = json.load(arquivo)
         print("📦 Memória restaurada: Dados do JSON carregados com sucesso!")
-except FileNotFoundError:
-   
-    print("⚠️ Primeiro acesso: Iniciando banco com dados de teste.")
-    cadastro_geral = {
-        "Centro": {
-            "NIS-001": {
-                "nome": "Maria Silva",
-                "cidade": "São Luís",
-                "bairro": "Centro", 
-                "coords": [-2.5278493, -44.3033239]
-            }
-        },
-        "Maiobão": {
-            "NIS-002": {
-                "nome": "José Ribamar",
-                "cidade": "Paço do Lumiar",
-                "bairro": "Maiobão", 
-                "coords": [-2.5392866, -44.1743995]
-            }
-        },
-        "Não Identificado": {
-            "NIS-003": {
-                "nome": "Ana Clara",
-                "cidade": "São José de Ribamar",
-                "bairro": "Não Identificado", 
-                "coords": [-2.4894791, -44.0385431]
-            }
-        }
-    }
+except (FileNotFoundError, json.JSONDecodeError):
+    print("⚠️ Banco de dados não encontrado ou vazio. Iniciando novo cadastro.")
+    cadastro_geral = {}
 
-    
 def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
     res_bruto = buscar_endereco_regiao_metropolitana(gmaps_cliente, endereco, cidade_alvo)
     dados_geo = extrair_cidade_e_bairro(res_bruto)
@@ -62,10 +30,7 @@ def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
     if dados_geo:
         bairro_real = dados_geo["bairro"]
         lat, lng = dados_geo["lat"], dados_geo["lng"]
-        
-        
         situacao_geo, nivel_prioridade = avaliar_prioridade_geografica(lat, lng)
-        
         
         if bairro_real not in cadastro_geral:
             cadastro_geral[bairro_real] = {}
@@ -78,10 +43,7 @@ def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
             "situacao": situacao_geo,
             "prioridade": nivel_prioridade
         }
-        print(f"✅ {nome} cadastrado!")
-        print(f"📢 Alerta de Zona: {situacao_geo} | Prioridade: {nivel_prioridade}")
-
-
+        print(f"✅ {nome} cadastrado com sucesso!")
 
 def menu_principal():
     while True:
@@ -100,36 +62,23 @@ def menu_principal():
         if opcao == "1":
             id_f = input("NIS/CPF da Família: ")
             nome = input("Nome do Responsável: ")
-            endereco = input("Endereço (Rua, nº, Ref): ")
-            cidade_alvo = input("Cidade de Referência: ")
+            endereco = input("Endereço: ")
+            cidade_alvo = input("Cidade: ")
             cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo)
 
         elif opcao == "2":
-            if any(cadastro_geral.values()):
-                grafico_comparativo_cidades(cadastro_geral)
-            else:
-                print("⚠️ Sem dados cadastrados para gerar gráficos.")
+            grafico_comparativo_cidades(cadastro_geral)
 
         elif opcao == "3":
             exibir_ranking_bairros(cadastro_geral)
 
         elif opcao == "4":
-            if any(cadastro_geral.values()):
-                print("🌍 Gerando mapa geoespacial...")
-                
-                gerar_mapa_interativo(cadastro_geral) 
-            else:
-                print("⚠️ Sem dados para gerar o mapa.")
+            gerar_mapa_interativo(cadastro_geral) 
 
         elif opcao == "5":
-            print("Encerrando sistema...")
-            from relatorios import salvar_dados_json
             salvar_dados_json(cadastro_geral)
+            print("💾 Dados salvos. Saindo...")
             break
-            
-        else:
-            print("❌ Opção inválida! Por favor, digite um número de 1 a 5.")
-    
+
 if __name__ == "__main__":
-    
     menu_principal()

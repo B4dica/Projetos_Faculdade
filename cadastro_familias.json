@@ -9,11 +9,41 @@
                 -44.205
             ],
             "prioridade": "ALTA"
+        },
+        "NIS-101": {
+            "nome": "Família Silva",
+            "cidade": "São Luís",
+            "bairro": "Cidade Olímpica",
+            "coords": [
+                -2.58,
+                -44.21
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-102": {
+            "nome": "Francisca Chagas",
+            "cidade": "São Luís",
+            "bairro": "Cidade Olímpica",
+            "coords": [
+                -2.575,
+                -44.2
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-103": {
+            "nome": "Davi Gomes",
+            "cidade": "São Luís",
+            "bairro": "Cidade Olímpica",
+            "coords": [
+                -2.579,
+                -44.208
+            ],
+            "prioridade": "ALTA"
         }
     },
     "Vila Maranhão": {
         "NIS-200": {
-            "nome": "Antônia dos Santos",
+            "nome": "Antônia Santos",
             "cidade": "São Luís",
             "bairro": "Vila Maranhão",
             "coords": [
@@ -21,11 +51,61 @@
                 -44.322
             ],
             "prioridade": "ALTA"
+        },
+        "NIS-201": {
+            "nome": "Raimundo Nonato",
+            "cidade": "São Luís",
+            "bairro": "Vila Maranhão",
+            "coords": [
+                -2.635,
+                -44.325
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-202": {
+            "nome": "Carlos Magno",
+            "cidade": "São Luís",
+            "bairro": "Vila Maranhão",
+            "coords": [
+                -2.63,
+                -44.32
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-203": {
+            "nome": "Pedro Lucas",
+            "cidade": "São Luís",
+            "bairro": "Vila Maranhão",
+            "coords": [
+                -2.636,
+                -44.328
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-204": {
+            "nome": "Ricardo Silva",
+            "cidade": "São Luís",
+            "bairro": "Vila Maranhão",
+            "coords": [
+                -2.632,
+                -44.324
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-205": {
+            "nome": "Família Vila II",
+            "cidade": "São Luís",
+            "bairro": "Vila Maranhão",
+            "coords": [
+                -2.638,
+                -44.33
+            ],
+            "prioridade": "ALTA"
         }
     },
     "Anjo da Guarda": {
         "NIS-300": {
-            "nome": "Raimunda Nonata",
+            "nome": "João de Deus",
             "cidade": "São Luís",
             "bairro": "Anjo da Guarda",
             "coords": [
@@ -33,52 +113,86 @@
                 -44.315
             ],
             "prioridade": "ALTA"
-        }
-    },
-    "Alemanha": {
-        "NIS-400": {
-            "nome": "Família Ribeirinha",
+        },
+        "NIS-301": {
+            "nome": "Maria José",
             "cidade": "São Luís",
-            "bairro": "Alemanha",
-            "coords": [
-                -2.528,
-                -44.275
-            ],
-            "prioridade": "ALTA"
-        }
-    },
-    "Coroadinho": {
-        "NIS-401": {
-            "nome": "Família das Palafitas",
-            "cidade": "São Luís",
-            "bairro": "Coroadinho",
+            "bairro": "Anjo da Guarda",
             "coords": [
                 -2.56,
-                -44.295
+                -44.31
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-302": {
+            "nome": "Registro 03",
+            "cidade": "São Luís",
+            "bairro": "Anjo da Guarda",
+            "coords": [
+                -2.562,
+                -44.312
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-303": {
+            "nome": "Registro 04",
+            "cidade": "São Luís",
+            "bairro": "Anjo da Guarda",
+            "coords": [
+                -2.555,
+                -44.318
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-304": {
+            "nome": "Registro 05",
+            "cidade": "São Luís",
+            "bairro": "Anjo da Guarda",
+            "coords": [
+                -2.559,
+                -44.316
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-305": {
+            "nome": "Registro 06",
+            "cidade": "São Luís",
+            "bairro": "Anjo da Guarda",
+            "coords": [
+                -2.564,
+                -44.308
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-306": {
+            "nome": "Registro 07",
+            "cidade": "São Luís",
+            "bairro": "Anjo da Guarda",
+            "coords": [
+                -2.561,
+                -44.314
+            ],
+            "prioridade": "ALTA"
+        },
+        "NIS-307": {
+            "nome": "Registro 08",
+            "cidade": "São Luís",
+            "bairro": "Anjo da Guarda",
+            "coords": [
+                -2.557,
+                -44.32
             ],
             "prioridade": "ALTA"
         }
     },
     "Centro": {
         "NIS-500": {
-            "nome": "Registro Urbano (Controle)",
+            "nome": "Registro Urbano",
             "cidade": "São Luís",
             "bairro": "Centro",
             "coords": [
                 -2.527,
                 -44.303
-            ],
-            "prioridade": "NORMAL"
-        }
-    },
-    "Maiobão": {
-        "NIS-600": {
-            "nome": "José Ribamar",
-            "cidade": "Paço do Lumiar",
-            "bairro": "Maiobão",
-            "coords": [
-                -2.539,
-                -44.174
             ],
             "prioridade": "NORMAL"
         }
