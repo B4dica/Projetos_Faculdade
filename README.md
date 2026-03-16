@@ -1,72 +1,52 @@
 # 🗺️ Sistema de Unificação Geográfica (UNDB 4.0)
-**Sistema de Segurança Alimentar - Grande Ilha (São Luís)**
 
-> **Status do Projeto:** Em desenvolvimento (Sprint 2) 🚧  
-> **Última Atualização:** 15 de Março de 2026
+**Foco:** Segurança Alimentar na Região Metropolitana de São Luís
 
-![Python](https://img.shields.io/badge/python-3.13-blue.svg)
-![Google Maps API](https://img.shields.io/badge/Google%20Maps-API-success)
-![Status](https://img.shields.io/badge/status-Sprint%201-orange)
+**Status:** Sprint 1 Finalizada ✅ | **Data:** 15 de Março de 2026
 
-## 📖 1. Visão Geral do Projeto e Problemática
-Este sistema é uma solução de **Inteligência Geográfica** desenvolvida para mapear e mitigar a insegurança alimentar na Região Metropolitana de São Luís (São Luís, Paço do Lumiar, São José de Ribamar e Raposa). 
+## 📖 1. Visão Geral e Contexto
 
-O software utiliza a **API do Google Maps** para normalizar endereços informais e convertê-los em dados estruturados, permitindo a priorização algorítmica de famílias em zonas de alta vulnerabilidade.
+O sistema foi desenvolvido para mapear e mitigar a insegurança alimentar na Grande Ilha. Ele soluciona o problema de endereços informais e duplicidade de dados, utilizando geolocalização precisa para priorizar famílias em áreas de extrema vulnerabilidade.
 
-Bairros como **Cidade Olímpica, Vila Maranhão e Anjo da Guarda** concentram famílias com renda *per capita* inferior a meio salário mínimo. Muitas delas dependem exclusivamente de programas de transferência de renda e doações para subsistência. Além disso, comunidades ribeirinhas e palafitárias, como as localizadas às margens dos **rios Anil e Bacanga**, sofrem com enchentes sazonais que agravam a escassez de alimentos e dificultam o acesso aos pontos de distribuição.
+Bairros como **Cidade Olímpica, Vila Maranhão e Anjo da Guarda** concentram famílias com renda inferior a meio salário mínimo. O software identifica automaticamente se essas famílias estão em comunidades ribeirinhas ou palafitárias (como nas margens dos **rios Anil e Bacanga**), que sofrem com enchentes sazonais.
 
-### 🎯 Principais Desafios Resolvidos:
-- **Duplicidade de Dados:** Mitiga lacunas no atendimento da assistência social municipal.
-- **Inconsistência Geográfica:** Transforma inputs informais em endereços oficiais validados em tempo real.
-- **Volume de Cadastros:** Utiliza estruturas com complexidade $O(1)$ para processamento rápido e eficiente.
+## 🏗️ 2. Arquitetura Modular (Clean Code)
 
----
+O projeto foi estruturado seguindo o princípio da responsabilidade única, facilitando a manutenção e escala:
 
-## 🏗️ 2. Arquitetura do Sistema (Modularização)
-O sistema adota uma arquitetura modular, dividindo claramente as responsabilidades:
+| Arquivo | Função |
+| --- | --- |
+| **`UnificIntdados.py`** | **O Maestro:** Gerencia o menu, o fluxo de cadastro e o carregamento inicial da memória. |
+| **`GeolocIntelij.py`** | **O Especialista:** Integração com Google Maps API e lógica de classificação automática de prioridade geográfica. |
+| **`relatorios.py`** | **O Analista:** Gera rankings de necessidade e gerencia a persistência (leitura/escrita) no banco JSON. |
+| **`visualizacao_mapa.py`** | **O Cartógrafo:** Gera o mapa interativo (`Folium`) com retângulos de risco e marcadores dinâmicos. |
+| **`gráficos.py`** | **O Visualizador:** Gera indicadores estatísticos em barras usando `Matplotlib`. |
 
-| Módulo | Papel | Descrição das Responsabilidades |
-| :--- | :--- | :--- |
-| `UnificIntdados.py` | **O Maestro** (Cérebro) | Gerencia o fluxo principal, interface interativa (CLI) e orquestração. |
-| `GeolocIntelij.py` | **O Especialista** (API) | Executa geocoding, extração de coordenadas e monitoramento de cotas da Google Maps API. |
-| `relatorios.py` | **O Analista** (Dados) | Processa rankings de prioridade e gerencia a persistência no `cadastro_familias.json`. |
-| `gráficos.py` | **O Visualizador** (UI) | Utiliza `matplotlib` para gerar indicadores visuais da distribuição por município. |
+## ⚙️ 3. Decisões Técnicas e Estrutura de Dados
 
----
+* **Persistência de Dados:** Uso de arquivos **JSON** com tratamento de exceção (`try/except`). Isso garante que os dados não sejam perdidos ao fechar o programa.
+* **Dicionários Aninhados:** A estrutura `{Bairro: {NIS: Dados}}` garante busca e inserção rápidas ($O(1)$), fundamental para o crescimento do banco de dados.
+* **Geoprocessamento:** O sistema utiliza cálculos de limites (latitude/longitude) para detectar se um endereço validado pelo Google entra em uma zona de monitoramento crítico.
 
-## ⚙️ 3. Lógica e Estruturas de Dados
-Para garantir a melhor complexidade computacional, o sistema utiliza:
+## 🚀 4. Funcionalidades Implementadas
 
-- **Dicionários Aninhados:** Estrutura matriz `{ Cidade: { NIS: { Dados } } }` garantindo acesso de complexidade temporal $O(1)$.
-- **Tuplas:** Coordenadas (lat, lng) são salvas em tuplas garantindo imutabilidade e economia de memória.
-- **Sets (Conjuntos):** Operações matemáticas de Diferença de Conjuntos para comparar "Bairros Alvo" vs "Bairros Atendidos".
-- **Listas de Listas:** Matrizes (`distribuicao_cestas`) para prever a sazonalidade e logística no período de chuvas (afetando diretamente as áreas ribeirinhas).
+1. **Cadastro com Validação Real:** Consulta à API do Google Cloud para converter endereços em coordenadas.
+2. **Ranking de Necessidade:** Ordenação automática dos bairros com maior volume de famílias em risco.
+3. **Mapa de Risco Interativo:** Geração de arquivo HTML com:
+* **Pins Coloridos:** Vermelho para prioridade alta e Azul para normal.
+* **Zonas de Risco:** Retângulos vermelhos delimitando as bacias hidrográficas dos rios Anil e Bacanga.
+* **Controle de Camadas:** Seletor para ligar/desligar visualizações.
 
----
 
-## 🚀 4. Funcionalidades de Destaque
-- **Gavetas Dinâmicas:** Alocação de bairros sob demanda (`if bairro_real not in cadastro_geral:`), evitando travamentos por Erro de Chave.
-- **Priorização Automática:** Algoritmo que eleva a prioridade de famílias com renda *per capita* < R$ 200,00 e chefia feminina.
-- **Dashboard de Cotas:** Contador preventivo de requisições `.geocode()` no terminal para evitar cobranças indevidas na Google Cloud.
+
+## 💻 5. Como Executar
+
+1. Instale as dependências: `pip install googlemaps python-dotenv matplotlib folium`
+2. Configure sua chave no arquivo `.env`: `GEOCODEAPI_KEY=sua_chave_aqui`
+3. Execute o arquivo principal: `python UnificIntdados.py`
 
 ---
 
-## 📊 5. Referencial Teórico (Validação de Dados)
-A base de dados de testes foi calibrada com as pesquisas oficias mais recentes do Brasil e do Maranhão:
+### 🎓 Nota para a Apresentação
 
-1. **IBGE (PNAD Contínua):** Priorização de lares chefiados por mulheres (59,9% dos casos graves) e baixa escolaridade.
-2. **Rede PENSSAN (VIGISAN):** Linha de corte focada em renda *per capita* $\le$ meio salário mínimo e trabalho informal.
-3. **IMESC / Sedes:** Validação geográfica focada nas bacias dos rios Anil e Bacanga, Vila Maranhão, Anjo da Guarda e Cidade Olímpica.
-
----
-
-## 💻 6. Como Executar o Projeto
-
-### Pré-requisitos
-- Python 3.13+ instalado.
-- Chave de API válida do Google Cloud (Geocoding API habilitada).
-
-### Passo a passo
-1. Clone este repositório:
-   ```bash
-   git clone [https://github.com/seu-usuario/nome-do-repositorio.git](https://github.com/seu-usuario/nome-do-repositorio.git)
+Este projeto demonstra a aplicação prática de Engenharia de Software ao unir estruturas de dados eficientes, integração de APIs de terceiros e visualização estratégica de informações para a resolução de problemas sociais reais.
