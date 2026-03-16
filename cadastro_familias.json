@@ -1,5 +1,15 @@
 {
     "Cidade Olímpica": {
+        "Cidade Olímpica": {
+        "NIS-010": {
+            "nome": "Família Silva - Unid. 203",
+            "cidade": "São Luís",
+            "bairro": "Cidade Olímpica",
+            "coords": [-2.578, -44.205],
+            "situacao": "Área de Vulnerabilidade Social",
+            "prioridade": "ALTA"
+        }
+    },
         "NIS-010": {
             "nome": "Família Silva - Unid. 203",
             "cidade": "São Luís",
@@ -10,6 +20,16 @@
         }
     },
     "Vila Maranhão": {
+        "Vila Maranhão": {
+        "NIS-012": {
+            "nome": "Maria José Pereira",
+            "cidade": "São Luís",
+            "bairro": "Vila Maranhão",
+            "coords": [-2.633, -44.322],
+            "situacao": "Área Industrial/Residencial Risco",
+            "prioridade": "ALTA"
+        }
+    },
         "NIS-012": {
             "nome": "Maria José Pereira",
             "cidade": "São Luís",
@@ -20,6 +40,16 @@
         }
     },
     "Anjo da Guarda": {
+         "Anjo da Guarda": {
+        "NIS-011": {
+            "nome": "João dos Santos",
+            "cidade": "São Luís",
+            "bairro": "Anjo da Guarda",
+            "coords": [-2.558, -44.315],
+            "situacao": "Área de Vulnerabilidade Social",
+            "prioridade": "MÉDIA"
+        }
+    },
         "345354": {
             "nome": "Garcia",
             "cidade": "São Luís",
@@ -44,7 +74,28 @@
             "prioridade": "NORMAL"
         }
     },
+    "Alemanha (Rio Anil)": {
+        "NIS-013": {
+            "nome": "Comunidade Ribeirinha Anil",
+            "cidade": "São Luís",
+            "bairro": "Alemanha",
+            "coords": [-2.528, -44.275],
+            "situacao": "Área de Alagamento (Rio Anil)",
+            "prioridade": "ALTA"
+        }
+    },
+    "Coroadinho (Bacanga)": {
+        "NIS-014": {
+            "nome": "Família das Palafitas",
+            "cidade": "São Luís",
+            "bairro": "Coroadinho",
+            "coords": [-2.560, -44.295],
+            "situacao": "Área de Alagamento (Rio Bacanga)",
+            "prioridade": "ALTA"
+        }
+    },
     "Maiobão": {
+        "Maiobão": {
         "NIS-002": {
             "nome": "José Ribamar",
             "cidade": "Paço do Lumiar",
@@ -56,16 +107,13 @@
             "prioridade": "NORMAL"
         }
     },
-    "Não Identificado": {
-        "NIS-003": {
-            "nome": "Ana Clara",
-            "cidade": "São José de Ribamar",
-            "coords": [
-                -2.4894791,
-                -44.0385431
-            ],
-            "situacao": "Área Urbana Comum",
-            "prioridade": "NORMAL"
+        "NIS-015": {
+            "nome": "Ricardo Oliveira",
+            "cidade": "Paço do Lumiar",
+            "bairro": "Maiobão",
+            "coords": [-2.539, -44.174],
+            "situacao": "Zona Urbana Metropolitana",
+            "prioridade": "BAIXA"
         }
     }
     
