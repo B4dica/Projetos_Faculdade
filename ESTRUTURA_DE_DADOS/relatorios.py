@@ -22,9 +22,6 @@ def exibir_ranking_bairros(cadastro_geral):
     print("\n" + "="*45)
     print("🚨 RANKING DE NECESSIDADE POR BAIRRO 🚨")
     print("="* 45)
-    for posicao, (bairro, quantidade) in enumerate(ranking_ordenado, 1):
-        print(f"{posicao}º Lugar | {bairro}: {quantidade} famílias mapeadas")
-    print("="*45 + "\n")
 
 # enumerate(..., 1) nos ajuda a colocar a posição (1º, 2º, 3º...) automaticamente
     for posicao, (bairro, quantidade) in enumerate(ranking_ordenado, 1):
