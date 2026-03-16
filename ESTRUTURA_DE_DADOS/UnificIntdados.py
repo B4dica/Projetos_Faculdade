@@ -77,17 +77,15 @@ def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
         cadastro_geral[bairro_real][id_f] = {
             "nome": nome,
             "cidade": dados_geo["cidade"],
-            "bairro": bairro_real,         # <--- ADICIONE ESTA LINHA!
-            "coords": [lat, lng],          # Salve como lista [] para o JSON aceitar fácil
+            "bairro": bairro_real,         
+            "coords": [lat, lng],          
             "situacao": situacao_geo,
             "prioridade": nivel_prioridade
         }
         print(f"✅ {nome} cadastrado!")
         print(f"📢 Alerta de Zona: {situacao_geo} | Prioridade: {nivel_prioridade}")
-# ... (seus imports continuam iguais aqui) ...
 
 
-# ... (seus imports continuam iguais)
 
 def menu_principal():
     while True:
@@ -111,7 +109,6 @@ def menu_principal():
             cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo)
 
         elif opcao == "2":
-            # Verifica se existe pelo menos uma cidade com dados cadastrados
             if any(cadastro_geral.values()):
                 grafico_comparativo_cidades(cadastro_geral)
             else:
@@ -123,7 +120,7 @@ def menu_principal():
         elif opcao == "4":
             if any(cadastro_geral.values()):
                 print("🌍 Gerando mapa geoespacial...")
-                # Aqui ele vai usar a função do visualizacao_mapa.py
+                
                 gerar_mapa_interativo(cadastro_geral) 
             else:
                 print("⚠️ Sem dados para gerar o mapa.")
@@ -138,5 +135,5 @@ def menu_principal():
             print("❌ Opção inválida! Por favor, digite um número de 1 a 5.")
     
 if __name__ == "__main__":
-    # O sistema já carregou os dados lá em cima, então é só abrir o menu direto!
+    
     menu_principal()
