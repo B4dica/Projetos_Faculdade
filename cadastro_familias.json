@@ -4,22 +4,11 @@
             "nome": "Maria de Jesus",
             "cidade": "São Luís",
             "bairro": "Cidade Olímpica",
-            "coords": [-2.578, -44.205],
+            "coords": [
+                -2.578,
+                -44.205
+            ],
             "prioridade": "ALTA"
-        },
-        "NIS-101": {
-            "nome": "Família Silva Pereira",
-            "cidade": "São Luís",
-            "bairro": "Cidade Olímpica",
-            "coords": [-2.580, -44.210],
-            "prioridade": "ALTA"
-        },
-        "NIS-102": {
-            "nome": "Francisca das Chagas",
-            "cidade": "São Luís",
-            "bairro": "Cidade Olímpica",
-            "coords": [-2.575, -44.200],
-            "prioridade": "NORMAL"
         }
     },
     "Vila Maranhão": {
@@ -27,48 +16,70 @@
             "nome": "Antônia dos Santos",
             "cidade": "São Luís",
             "bairro": "Vila Maranhão",
-            "coords": [-2.633, -44.322],
-            "prioridade": "ALTA"
-        },
-        "NIS-201": {
-            "nome": "Raimundo Nonato",
-            "cidade": "São Luís",
-            "bairro": "Vila Maranhão",
-            "coords": [-2.635, -44.325],
+            "coords": [
+                -2.633,
+                -44.322
+            ],
             "prioridade": "ALTA"
         }
     },
     "Anjo da Guarda": {
         "NIS-300": {
-            "nome": "João de Deus",
+            "nome": "Raimunda Nonata",
             "cidade": "São Luís",
             "bairro": "Anjo da Guarda",
-            "coords": [-2.558, -44.315],
+            "coords": [
+                -2.558,
+                -44.315
+            ],
             "prioridade": "ALTA"
-        },
-        "NIS-301": {
-            "nome": "Maria José Pereira",
-            "cidade": "São Luís",
-            "bairro": "Anjo da Guarda",
-            "coords": [-2.560, -44.310],
-            "prioridade": "NORMAL"
         }
     },
     "Alemanha": {
         "NIS-400": {
-            "nome": "Comunidade Rio Anil",
+            "nome": "Família Ribeirinha",
             "cidade": "São Luís",
             "bairro": "Alemanha",
-            "coords": [-2.528, -44.275],
+            "coords": [
+                -2.528,
+                -44.275
+            ],
             "prioridade": "ALTA"
         }
     },
-    "Maiobão": {
+    "Coroadinho": {
+        "NIS-401": {
+            "nome": "Família das Palafitas",
+            "cidade": "São Luís",
+            "bairro": "Coroadinho",
+            "coords": [
+                -2.56,
+                -44.295
+            ],
+            "prioridade": "ALTA"
+        }
+    },
+    "Centro": {
         "NIS-500": {
+            "nome": "Registro Urbano (Controle)",
+            "cidade": "São Luís",
+            "bairro": "Centro",
+            "coords": [
+                -2.527,
+                -44.303
+            ],
+            "prioridade": "NORMAL"
+        }
+    },
+    "Maiobão": {
+        "NIS-600": {
             "nome": "José Ribamar",
             "cidade": "Paço do Lumiar",
             "bairro": "Maiobão",
-            "coords": [-2.539, -44.174],
+            "coords": [
+                -2.539,
+                -44.174
+            ],
             "prioridade": "NORMAL"
         }
     }
