@@ -1,6 +1,24 @@
 {
-    "Cidade Olímpica": {},
-    "Vila Maranhão": {},
+    "Cidade Olímpica": {
+        "NIS-010": {
+            "nome": "Família Silva - Unid. 203",
+            "cidade": "São Luís",
+            "bairro": "Cidade Olímpica",
+            "coords": [-2.578, -44.205],
+            "situacao": "Área de Vulnerabilidade Social",
+            "prioridade": "ALTA"
+        }
+    },
+    "Vila Maranhão": {
+        "NIS-012": {
+            "nome": "Maria José Pereira",
+            "cidade": "São Luís",
+            "bairro": "Vila Maranhão",
+            "coords": [-2.633, -44.322],
+            "situacao": "Área Industrial/Residencial Risco",
+            "prioridade": "ALTA"
+        }
+    },
     "Anjo da Guarda": {
         "345354": {
             "nome": "Garcia",
@@ -50,4 +68,5 @@
             "prioridade": "NORMAL"
         }
     }
+    
 }
