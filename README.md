@@ -35,7 +35,6 @@ O projeto foi estruturado seguindo o princípio da responsabilidade única, faci
 3. **Mapa de Risco Interativo:** Geração de arquivo HTML com:
 * **Pins Coloridos:** Vermelho para prioridade alta e Azul para normal.
 * **Zonas de Risco:** Retângulos vermelhos delimitando as bacias hidrográficas dos rios Anil e Bacanga.
-* **Controle de Camadas:** Seletor para ligar/desligar visualizações.
 
 
 
