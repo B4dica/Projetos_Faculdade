@@ -1,4 +1,4 @@
-# 1. Importe todas as funções que você criou no arquivo Geo
+
 from GeolocIntelij import (
     inicializar_gmaps, 
     buscar_endereco, 
@@ -8,34 +8,31 @@ from GeolocIntelij import (
     avaliar_prioridade_geografica,                
 )
 import os
-import json # <--- Importante estar aqui
+import json 
 from dotenv import load_dotenv
 from relatorios import exibir_ranking_bairros
 
-# Importe a função do arquivo de gráficos
+
 from gráficos import grafico_comparativo_cidades
 from visualizacao_mapa import gerar_mapa_interativo
 
 load_dotenv()
 gmaps_cliente = inicializar_gmaps()
 
-# -------------------------------------------------------------
-# LÓGICA DE CARREGAMENTO (A "Memória" do Sistema)
-# -------------------------------------------------------------
-# Tenta ler os dados salvos quando o programa inicia
+
 try:
     with open("cadastro_familias.json", "r", encoding="utf-8") as arquivo:
         cadastro_geral = json.load(arquivo)
         print("📦 Memória restaurada: Dados do JSON carregados com sucesso!")
 except FileNotFoundError:
-    # Se for a primeira vez rodando e o arquivo não existir, usa dados de teste
+   
     print("⚠️ Primeiro acesso: Iniciando banco com dados de teste.")
     cadastro_geral = {
         "Centro": {
             "NIS-001": {
                 "nome": "Maria Silva",
                 "cidade": "São Luís",
-                "bairro": "Centro", # <--- Faltava isso aqui!
+                "bairro": "Centro", 
                 "coords": [-2.5278493, -44.3033239]
             }
         },
@@ -43,7 +40,7 @@ except FileNotFoundError:
             "NIS-002": {
                 "nome": "José Ribamar",
                 "cidade": "Paço do Lumiar",
-                "bairro": "Maiobão", # <--- Faltava isso aqui!
+                "bairro": "Maiobão", 
                 "coords": [-2.5392866, -44.1743995]
             }
         },
@@ -51,14 +48,13 @@ except FileNotFoundError:
             "NIS-003": {
                 "nome": "Ana Clara",
                 "cidade": "São José de Ribamar",
-                "bairro": "Não Identificado", # <--- Faltava isso aqui!
+                "bairro": "Não Identificado", 
                 "coords": [-2.4894791, -44.0385431]
             }
         }
     }
-# -------------------------------------------------------------
 
-    # ... (o resto do seu código continua normal daqui para baixo) ...
+    
 def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
     res_bruto = buscar_endereco_regiao_metropolitana(gmaps_cliente, endereco, cidade_alvo)
     dados_geo = extrair_cidade_e_bairro(res_bruto)
@@ -67,9 +63,9 @@ def cadastrar_na_ilha(id_f, nome, endereco, cidade_alvo):
         bairro_real = dados_geo["bairro"]
         lat, lng = dados_geo["lat"], dados_geo["lng"]
         
-        # --- NOVIDADE: MAPEAMENTO DE RISCO ---
+        
         situacao_geo, nivel_prioridade = avaliar_prioridade_geografica(lat, lng)
-        # -------------------------------------
+        
         
         if bairro_real not in cadastro_geral:
             cadastro_geral[bairro_real] = {}

@@ -2,8 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import googlemaps
-from googlemaps import Client # Ajuda o VS Code a reconhecer os método
-# Coordenadas aproximadas baseadas na geografia de São Luís
+from googlemaps import Client 
 ZONAS_CRITICAS = {
     "ZONA_ANIL": {
         "nome": "Comunidade Ribeirinha - Rio Anil (Risco de Enchente)",
@@ -19,10 +18,9 @@ ZONAS_CRITICAS = {
     }
 }
 
-contador_api = 0  # Variável global para contar as chamadas
+contador_api = 0  
 
-# 1. CONFIGURAÇÃO DE AMBIENTE
-# Localiza o .env na mesma pasta deste arquivo
+
 caminho_projeto = Path(__file__).resolve().parent
 load_dotenv(dotenv_path=caminho_projeto / ".env")
 

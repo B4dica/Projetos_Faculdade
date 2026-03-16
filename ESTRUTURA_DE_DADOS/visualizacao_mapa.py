@@ -24,9 +24,9 @@ def gerar_mapa_interativo(cadastro_geral):
         popup='ZONA DE RISCO: Bacia do Rio Bacanga'
     ).add_to(mapa)
 
-    # --- ADICIONANDO OS MARCADORES DAS FAMÍLIAS ---
+   
     for bairro, familias in cadastro_geral.items():
-        # Verifica se 'familias' é um dicionário (estrutura NIS: dados)
+        
         if isinstance(familias, dict):
             for id_f, dados in familias.items():
                 if "coords" in dados:
