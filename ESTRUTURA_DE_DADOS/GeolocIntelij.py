@@ -43,25 +43,24 @@ def inicializar_gmaps(): #1 ocorrência
         print(f"❌ Erro ao conectar com Google Maps: {e}")
         return None
 
-def buscar_endereco(gmaps_client, endereco_curto): #2 ocorrência
-    # gmaps = gmaps_client, endereco_curto = o que vai 
+# No seu GeolocIntelij.py, substitua as funções de busca por esta única:
+
+def buscar_endereco_mestre(gmaps_client, endereco_curto, cidade="São Luís"):
     """
-    Recebe um endereço simples e retorna os dados geográficos de São Luís.
+    Função unificada: Força o contexto da Grande Ilha e conta chamadas.
     """
     global contador_api
-
-    if not gmaps_client:
-        return None
-    contador_api += 1 ### SOMA +1
-    print(f"\n[INFO] Chamada à API nº: {contador_api} (Limite diário sugerido: 200)") ### PRINTA O AVISO
-        
-    # Força a busca dentro do contexto de São Luís para evitar erros
-    busca = f"{endereco_curto}, São Luís, MA, Brasil"
+    if not gmaps_client: return None
+    
+    contador_api += 1
+    # String otimizada para o Google não se perder
+    busca = f"{endereco_curto}, {cidade}, MA, Brasil"
     
     try:
+        print(f"📡 Chamada API #{contador_api}: {busca}")
         return gmaps_client.geocode(busca)
     except Exception as e:
-        print(f"❌ Erro na busca de geolocalização: {e}")
+        print(f"❌ Erro na busca: {e}")
         return None
 
 def extrair_dados_limpos(resultado_google): #4 ocorrência
@@ -85,21 +84,6 @@ def extrair_dados_limpos(resultado_google): #4 ocorrência
         "lng": dados['geometry']['location']['lng'],
         "endereco_formatado": dados['formatted_address']
     }
-def buscar_endereco_regiao_metropolitana(gmaps_client, endereco_curto, cidade): # 3 Ocorrência
-    """
-    Agora recebe a 'cidade' como argumento para buscar em SLZ, Paço ou Ribamar.
-    """
-    if not gmaps_client:
-        return None
-        
-    # Ex: "Maiobão, Paço do Lumiar, MA, Brasil"
-    busca = f"{endereco_curto}, {cidade}, MA, Brasil"
-    
-    try:
-        return gmaps_client.geocode(busca)
-    except Exception as e:
-        print(f"❌ Erro na busca: {e}")
-        return None
 
 def extrair_cidade_e_bairro(resultado_google): #5 ocorrência resultado_gooogle = res_bruto
     """
@@ -126,14 +110,23 @@ def extrair_cidade_e_bairro(resultado_google): #5 ocorrência resultado_gooogle 
     }
 def avaliar_prioridade_geografica(lat, lng):
     """
-    Analisa se as coordenadas confirmadas pelo Google 
-    estão dentro de áreas de risco real ou vulnerabilidade extrema.
+    Verifica se a coordenada está em áreas de palafitas ou bacias de inundação.
+    Baseado no desafio UNDB: Rio Anil, Rio Bacanga e Vila Maranhão.
     """
-    for zona_id, info in ZONAS_CRITICAS.items():
-        limites = info["limites"]
-        if limites["lat_min"] <= lat <= limites["lat_max"] and \
-           limites["lng_min"] <= lng <= limites["lng_max"]:
-            return info["nome"], "ALTA" # Retorna o nome da zona e o nível de prioridade
+    # Bacia do Rio Anil (Foca na área da Liberdade, Camboa, Fé em Deus)
+    # Ajustamos para um polígono mais estreito sobre o rio
+    rio_anil = (-2.540 <= lat <= -2.525) and (-44.300 <= lng <= -44.270)
+    
+    # Bacia do Rio Bacanga (Foca no Coroadinho, Sá Viana, Parque Amazonas)
+    rio_bacanga = (-2.575 <= lat <= -2.545) and (-44.315 <= lng <= -44.280)
+    
+    # Polo Industrial / Vila Maranhão (Área crítica de isolamento)
+    vila_maranhao = (-2.650 <= lat <= -2.600) and (-44.350 <= lng <= -44.300)
+
+    if rio_anil or rio_bacanga or vila_maranhao:
+        return "ÁREA DE RISCO (ALAGAMENTO/PALAFITA)", "ALTA"
+    else:
+        return "ÁREA URBANA COMUM", "NORMAL"
             
     return "Área Urbana Comum", "NORMAL"
 def gerar_url_mapa_estatico(lat, lng):
