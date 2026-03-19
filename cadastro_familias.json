@@ -12924,5 +12924,19 @@
             "situacao": "ÁREA URBANA COMUM",
             "data_cadastro": "01/2026"
         }
+    },
+    "Olho D'agua": {
+        "3435": {
+            "nome": "Garcia",
+            "cidade": "São Luís",
+            "bairro": "Olho D'agua",
+            "coords": [
+                -2.485977,
+                -44.2298355
+            ],
+            "situacao": "ÁREA URBANA COMUM",
+            "prioridade": "NORMAL",
+            "data_cadastro": "03/2026"
+        }
     }
 }
