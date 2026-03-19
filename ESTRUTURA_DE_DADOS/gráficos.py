@@ -1,94 +1,106 @@
 import matplotlib.pyplot as plt
 import folium
-from folium import plugins # <--- Essencial para o HeatMap e MiniMap
+from folium.plugins import HeatMap
+from transparência import buscar_beneficios_municipio
 
 def grafico_comparativo_cidades(cadastro_geral):
-    # Lógica de contagem que já corrigimos para mostrar os valores reais (8, 6, 4...)
+    # --- ESTA FUNÇÃO GERA APENAS O GRÁFICO DE BARRAS NO TERMINAL ---
     nomes_bairros = []
     contagem_familias = []
 
-    for bairro, familias in cadastro_geral.items():
-        if isinstance(familias, dict):
-            quantidade = len(familias)
-            if quantidade > 0:
-                nomes_bairros.append(bairro)
-                contagem_familias.append(quantidade)
+    for chave, dados in cadastro_geral.items():
+        if isinstance(dados, dict) and "ESTATISTICA" not in chave:
+            nomes_bairros.append(chave)
+            contagem_familias.append(len(dados))
 
     if not contagem_familias:
-        print("⚠️ Sem dados válidos para gerar o gráfico.")
+        print("⚠️ Sem dados de bairros para o gráfico. Sincronize (Opção 5) primeiro.")
         return
 
-    plt.figure(figsize=(10, 6))
-    cores = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2']
+    print("🔄 Puxando dados oficiais de São Luís...")
+    dados_api = buscar_beneficios_municipio("2111300", "202601")
+    
+    texto_api = "Dados Oficiais indisponíveis."
+    if dados_api and len(dados_api) > 0:
+        res = dados_api[0]
+        qtd = res.get('quantidadeBeneficiarios') or res.get('quantidadeBeneficiados') or 0
+        valor = res.get('valor', 0)
+        texto_api = f"PORTAL DA TRANSPARÊNCIA (SLZ):\nFamílias: {qtd} | Investimento: R$ {valor:,.2f}"
+
+    plt.figure(figsize=(12, 7))
+    cores = ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f', '#9b59b6']
     barras = plt.bar(nomes_bairros, contagem_familias, color=cores[:len(nomes_bairros)])
     
     for barra in barras:
         yval = barra.get_height()
-        plt.text(barra.get_x() + barra.get_width()/2, yval + 0.1, f'{int(yval)}', ha='center', va='bottom', fontweight='bold')
+        plt.text(barra.get_x() + barra.get_width()/2, yval + 1, f'{int(yval)}', ha='center', va='bottom')
 
-    plt.title('Distribuição Real de Famílias por Bairro', fontsize=14)
-    plt.ylabel('Quantidade de Famílias (Registros NIS)')
-    plt.xlabel('Bairros Mapeados no Sistema')
-    plt.xticks(rotation=45, ha='right')
-    plt.ylim(0, max(contagem_familias) + 2)
+    plt.title('Vigilant: Monitoramento de Clusters de Vulnerabilidade (N=1.200)', fontsize=14, fontweight='bold')
+    plt.figtext(0.5, 0.01, texto_api, ha="center", bbox={"facecolor":"orange", "alpha":0.2, "pad":5})
     plt.tight_layout()
     plt.show()
 
 def gerar_mapa_interativo(cadastro_geral):
-    """Gera o mapa avançado com HeatMap, Marcadores e Zonas de Risco."""
-    # Centralizado em São Luís
-    mapa = folium.Map(location=[-2.5307, -44.3068], zoom_start=12)
+    print("🌍 Gerando Mapa de Risco de São Luís (Versão Final Completa)...")
     
-    # Criamos os Grupos de Camadas (Para o menu lateral)
-    camada_risco = folium.FeatureGroup(name='Zonas de Risco (Rios)')
-    camada_familias = folium.FeatureGroup(name='Marcadores Individuais')
-    camada_calor = folium.FeatureGroup(name='Mapa de Calor (Densidade)', show=True)
-
+    # 1. CRIAÇÃO DO MAPA (Base)
+    mapa = folium.Map(location=[-2.5307, -44.3068], zoom_start=12)
     dados_calor = []
 
-    # --- PROCESSAMENTO DOS DADOS ---
+    # --- CAMADA: GEOFENCING DE 3 NÍVEIS (Retângulos Fixos) ---
+    # Coordenadas calibradas para Anil e Bacanga
+    zona_critica = [[-2.5450, -44.2980], [-2.5200, -44.2700]] # Anil/Liberdade
+    folium.Rectangle(
+        bounds=zona_critica, color="red", weight=3, fill=True, fill_color="red", fill_opacity=0.2,
+        popup="🚨 ZONA CRÍTICA"
+    ).add_to(mapa)
+
+    folium.Rectangle(
+        bounds=[[-2.5850, -44.3150], [-2.5500, -44.2900]], # Bacanga
+        color="red", weight=3, fill=True, fill_color="red", fill_opacity=0.2,
+        popup="🚨 ZONA CRÍTICA"
+    ).add_to(mapa)
+
+    # Perímetro de Monitoramento (Buffer Tracejado Amarelo/Laranja)
+    folium.Rectangle(
+        bounds=[[-2.6000, -44.3300], [-2.5100, -44.2600]], color="orange", weight=1, fill=False,
+        dash_array='10, 10', popup="⚠️ PERÍMETRO DE MONITORAMENTO"
+    ).add_to(mapa)
+    # ---------------------------------------------------------
+
+    # 2. RENDERIZAÇÃO DOS DADOS (Onde estava o erro)
     for bairro, familias in cadastro_geral.items():
-        if isinstance(familias, dict):
-            for id_f, dados in familias.items():
-                if "coords" in dados:
-                    lat, lng = dados['coords']
-                    dados_calor.append([lat, lng]) # Adiciona à lista de calor
-                    
-                    # Marcadores Individuais (Vermelho para ALTA prioridade)
-                    cor_pino = 'red' if dados.get('prioridade') == 'ALTA' else 'blue'
-                    folium.Marker(
-                        location=[lat, lng],
-                        popup=folium.Popup(f"<b>Família:</b> {dados['nome']}<br><b>Bairro:</b> {bairro}", max_width=300),
-                        icon=folium.Icon(color=cor_pino, icon='home')
-                    ).add_to(camada_familias)
+        if not isinstance(familias, dict) or "ESTATISTICA" in bairro:
+            continue
+            
+        for id_f, info in familias.items():
+            if isinstance(info, dict) and "coords" in info:
+                dados_calor.append(info["coords"])
+                
+                # --- CORREÇÃO: LÓGICA DE CORES DOS ÍCONES ---
+                # Pega a prioridade. Se não tiver, assume "NORMAL".
+                prioridade = info.get("prioridade", "NORMAL").upper()
+                
+                if prioridade == "CRÍTICO" or prioridade == "ALTA":
+                    cor_ponto = "red" # Vermelho para o Garcia e zonas críticas
+                elif prioridade == "ALERTA" or prioridade == "MEDIA":
+                    cor_ponto = "orange" # Amarelo/Laranja para Proximidade
+                else:
+                    cor_ponto = "blue" # Azul para Comum
+                # ----------------------------------------------
+                
+                # Desenha o Marcador com a cor correta
+                folium.CircleMarker(
+                    location=info["coords"],
+                    radius=6, color=cor_ponto, fill=True, fill_opacity=0.8,
+                    popup=f"<b>Família:</b> {info['nome']}<br><b>Prioridade:</b> {info['prioridade']}"
+                ).add_to(mapa)
 
-    # --- ADICIONANDO O CALOR ---
+    # 3. NOVIDADE: CAMADA DE CALOR (O "efeito visual" que sumiu)
     if dados_calor:
-        plugins.HeatMap(dados_calor, radius=15, blur=10, min_opacity=0.5).add_to(camada_calor)
-
-    # --- ZONAS DE RISCO (Retângulos) ---
-    # Rio Anil
-    folium.Rectangle(
-        bounds=[[-2.535, -44.290], [-2.520, -44.260]],
-        color='red', fill=True, fill_opacity=0.2,
-        popup='ZONA DE RISCO: Bacia do Rio Anil'
-    ).add_to(camada_risco)
-
-    # Rio Bacanga
-    folium.Rectangle(
-        bounds=[[-2.570, -44.310], [-2.545, -44.285]],
-        color='red', fill=True, fill_opacity=0.2,
-        popup='ZONA DE RISCO: Bacia do Rio Bacanga'
-    ).add_to(camada_risco)
-
-    # Adiciona tudo ao mapa
-    camada_calor.add_to(mapa)
-    camada_risco.add_to(mapa)
-    camada_familias.add_to(mapa)
-
-    # Controle de Camadas e MiniMapa
-    folium.LayerControl().add_to(mapa)
-    plugins.MiniMap().add_to(mapa)
-
+        print("🔥 Adicionando Mapa de Calor...")
+        # radius=20 e blur=15 criam manchas visíveis no mapa
+        HeatMap(dados_calor, radius=20, blur=15).add_to(mapa)
+        
     mapa.save("mapa_seguranca_alimentar.html")
-    print("\n🔥 Mapa de Calor e Zonas de Risco gerados com sucesso!")
+    print("✅ Mapa gerado com TODAS as camadas (Calor, Marcadores Coloridos e Geofencing)!")
