@@ -1,51 +1,54 @@
 # 🗺️ Sistema de Unificação Geográfica (UNDB 4.0)
 
-**Foco:** Segurança Alimentar na Região Metropolitana de São Luís
-
-**Status:** Sprint 2 Finalizada ✅ | **Data:** 15 de Março de 2026
-
-## 📖 1. Visão Geral e Contexto
-
-O sistema foi desenvolvido para mapear e mitigar a insegurança alimentar na Grande Ilha. Ele soluciona o problema de endereços informais e duplicidade de dados, utilizando geolocalização precisa para priorizar famílias em áreas de extrema vulnerabilidade.
-
-Bairros como **Cidade Olímpica, Vila Maranhão e Anjo da Guarda** concentram famílias com renda inferior a meio salário mínimo. O software identifica automaticamente se essas famílias estão em comunidades ribeirinhas ou palafitárias (como nas margens dos **rios Anil e Bacanga**), que sofrem com enchentes sazonais.
-
-## 🏗️ 2. Arquitetura Modular (Clean Code)
-
-O projeto foi estruturado seguindo o princípio da responsabilidade única, facilitando a manutenção e escala:
-
-| Arquivo | Função |
-| --- | --- |
-| **`UnificIntdados.py`** | **O Maestro:** Gerencia o menu, o fluxo de cadastro e o carregamento inicial da memória. |
-| **`GeolocIntelij.py`** | **O Especialista:** Integração com Google Maps API e lógica de classificação automática de prioridade geográfica. |
-| **`relatorios.py`** | **O Analista:** Gera rankings de necessidade e gerencia a persistência (leitura/escrita) no banco JSON. |
-| **`visualizacao_mapa.py`** | **O Cartógrafo:** Gera o mapa interativo (`Folium`) com retângulos de risco e marcadores dinâmicos. |
-| **`gráficos.py`** | **O Visualizador:** Gera indicadores estatísticos em barras usando `Matplotlib`. |
-
-## ⚙️ 3. Decisões Técnicas e Estrutura de Dados
-
-* **Persistência de Dados:** Uso de arquivos **JSON** com tratamento de exceção (`try/except`). Isso garante que os dados não sejam perdidos ao fechar o programa.
-* **Dicionários Aninhados:** A estrutura `{Bairro: {NIS: Dados}}` garante busca e inserção rápidas (O(1)), fundamental para o crescimento do banco de dados.
-* **Geoprocessamento:** O sistema utiliza cálculos de limites (latitude/longitude) para detectar se um endereço validado pelo Google entra em uma zona de monitoramento crítico.
-
-## 🚀 4. Funcionalidades Implementadas
-
-1. **Cadastro com Validação Real:** Consulta à API do Google Cloud para converter endereços em coordenadas.
-2. **Ranking de Necessidade:** Ordenação automática dos bairros com maior volume de famílias em risco.
-3. **Mapa de Risco Interativo:** Geração de arquivo HTML com:
-* **Pins Coloridos:** Vermelho para prioridade alta e Azul para normal.
-* **Zonas de Risco:** Retângulos vermelhos delimitando as bacias hidrográficas dos rios Anil e Bacanga.
-
-
-
-## 💻 5. Como Executar
-
-1. Instale as dependências: `pip install googlemaps python-dotenv matplotlib folium`
-2. Configure sua chave no arquivo `.env`: `GEOCODEAPI_KEY=sua_chave_aqui`
-3. Execute o arquivo principal: `python UnificIntdados.py`
+**Foco:** Segurança Alimentar e Inteligência de Dados na Região Metropolitana de São Luís  
+**Status:** Sprint Final Finalizada ✅ | **Data:** 19 de Março de 2026  
 
 ---
 
-### 🎓 Nota para a Apresentação
+## 📖 1. Visão Geral e Contexto
+O sistema funciona como uma plataforma de **Inteligência Geossocial**. Além de validar endereços informais via geolocalização, o software cruza dados geográficos de risco (áreas de alagamento) com indicadores socioeconômicos (Renda e Aluguel) para identificar famílias em **Estado Crítico**.
 
-Este projeto demonstra a aplicação prática de Engenharia de Software ao unir estruturas de dados eficientes, integração de APIs de terceiros e visualização estratégica de informações para a resolução de problemas sociais reais.
+O diferencial desta versão é a integração com o **Portal da Transparência**, permitindo comparar os cadastros locais com o investimento federal (Bolsa Família) na região.
+
+---
+
+## 🏗️ 2. Arquitetura Modular
+O projeto segue o princípio da **Responsabilidade Única (SRP)**:
+
+| Arquivo | Função |
+| :--- | :--- |
+| **UnificIntdados.py** | Maestro: Gerencia o menu e a lógica de decisão social. |
+| **GeolocIntelij.py** | Especialista: Interface com Google Maps API e polígonos de risco. |
+| **transparencia.py** | Integrador: Consome a API REST do Governo Federal. |
+| **visualizacao_mapa.py** | Dashboard: Gera o mapa interativo, Calor e Painel HTML. |
+| **gráficos.py** | Visualizador: Gera barras estatísticas com dados da API. |
+| **relatorios.py** | Persistente: Gerencia o ranking e o banco de dados JSON. |
+
+
+
+---
+
+## ⚙️ 3. Decisões Técnicas e Lógica
+* **Lógica de Priorização:** Triagem automática usando a regra:  
+  `SE (Renda <= 1412.00 E Aluguel == True) -> STATUS: CRÍTICO (Vinho)`.
+* **Resiliência (Failover):** Implementação de **Mock de Dados**. Caso a API do Governo falhe ou o token expire, o sistema ativa dados históricos para não interromper a visualização.
+* **Eficiência:** Uso de **Dicionários Aninhados**, garantindo busca e inserção em tempo constante **O(1)**.
+
+---
+
+## 🚀 4. Funcionalidades Principais
+1. **Geocodificação:** Converte endereços em coordenadas precisas via Google Cloud.
+2. **Análise Geoespacial:** Identifica residências em zonas de risco (rios Anil/Bacanga).
+3. **Pins Dinâmicos:** Cores diferenciadas (Vinho, Vermelho, Azul) por urgência.
+4. **Mapa de Calor:** Identifica manchas de densidade de vulnerabilidade.
+5. **Dashboard Integrado:** O mapa HTML exibe um painel com dados reais de investimento federal.
+
+---
+
+## 💻 5. Como Executar
+1. Instale as dependências:  
+   `pip install googlemaps python-dotenv matplotlib folium requests`
+2. Configure o arquivo `.env`:
+   ```env
+   GEOCODEAPI_KEY=sua_chave_google
+   CHAVE_TRANSPARENCIA=seu_token_governo
