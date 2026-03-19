@@ -41,34 +41,27 @@ def grafico_comparativo_cidades(cadastro_geral):
     plt.show()
 
 def gerar_mapa_interativo(cadastro_geral):
-    print("🌍 Gerando Mapa de Risco de São Luís (Versão Final Completa)...")
+    print("🌍 Gerando Mapa de Risco com Controle de Camadas...")
     
-    # 1. CRIAÇÃO DO MAPA (Base)
     mapa = folium.Map(location=[-2.5307, -44.3068], zoom_start=12)
     dados_calor = []
 
-    # --- CAMADA: GEOFENCING DE 3 NÍVEIS (Retângulos Fixos) ---
-    # Coordenadas calibradas para Anil e Bacanga
-    zona_critica = [[-2.5450, -44.2980], [-2.5200, -44.2700]] # Anil/Liberdade
+    # --- 1. GRUPOS DE CAMADAS (Para o Botão funcionar) ---
+    camada_risco = folium.FeatureGroup(name="🚨 Zonas de Risco (Geofencing)")
+    camada_indicadores = folium.FeatureGroup(name="📍 Indicadores de Famílias", show=True)
+    
+    # --- 2. ADICIONANDO AS ZONAS DE RISCO AO GRUPO ---
     folium.Rectangle(
-        bounds=zona_critica, color="red", weight=3, fill=True, fill_color="red", fill_opacity=0.2,
-        popup="🚨 ZONA CRÍTICA"
-    ).add_to(mapa)
+        bounds=[[-2.5450, -44.2980], [-2.5200, -44.2700]], 
+        color="red", fill=True, fill_opacity=0.2, popup="Rio Anil"
+    ).add_to(camada_risco)
 
     folium.Rectangle(
-        bounds=[[-2.5850, -44.3150], [-2.5500, -44.2900]], # Bacanga
-        color="red", weight=3, fill=True, fill_color="red", fill_opacity=0.2,
-        popup="🚨 ZONA CRÍTICA"
-    ).add_to(mapa)
+        bounds=[[-2.5850, -44.3150], [-2.5500, -44.2900]], 
+        color="red", fill=True, fill_opacity=0.2, popup="Rio Bacanga"
+    ).add_to(camada_risco)
 
-    # Perímetro de Monitoramento (Buffer Tracejado Amarelo/Laranja)
-    folium.Rectangle(
-        bounds=[[-2.6000, -44.3300], [-2.5100, -44.2600]], color="orange", weight=1, fill=False,
-        dash_array='10, 10', popup="⚠️ PERÍMETRO DE MONITORAMENTO"
-    ).add_to(mapa)
-    # ---------------------------------------------------------
-
-    # 2. RENDERIZAÇÃO DOS DADOS (Onde estava o erro)
+    # --- 3. PROCESSANDO FAMÍLIAS E ADICIONANDO AO GRUPO DE INDICADORES ---
     for bairro, familias in cadastro_geral.items():
         if not isinstance(familias, dict) or "ESTATISTICA" in bairro:
             continue
@@ -77,30 +70,27 @@ def gerar_mapa_interativo(cadastro_geral):
             if isinstance(info, dict) and "coords" in info:
                 dados_calor.append(info["coords"])
                 
-                # --- CORREÇÃO: LÓGICA DE CORES DOS ÍCONES ---
-                # Pega a prioridade. Se não tiver, assume "NORMAL".
                 prioridade = info.get("prioridade", "NORMAL").upper()
+                cor_ponto = "red" if prioridade in ["CRÍTICO", "ALTA"] else "orange" if prioridade in ["ALERTA", "MEDIA"] else "blue"
                 
-                if prioridade == "CRÍTICO" or prioridade == "ALTA":
-                    cor_ponto = "red" # Vermelho para o Garcia e zonas críticas
-                elif prioridade == "ALERTA" or prioridade == "MEDIA":
-                    cor_ponto = "orange" # Amarelo/Laranja para Proximidade
-                else:
-                    cor_ponto = "blue" # Azul para Comum
-                # ----------------------------------------------
-                
-                # Desenha o Marcador com a cor correta
                 folium.CircleMarker(
                     location=info["coords"],
                     radius=6, color=cor_ponto, fill=True, fill_opacity=0.8,
                     popup=f"<b>Família:</b> {info['nome']}<br><b>Prioridade:</b> {info['prioridade']}"
-                ).add_to(mapa)
+                ).add_to(camada_indicadores)
 
-    # 3. NOVIDADE: CAMADA DE CALOR (O "efeito visual" que sumiu)
+    # --- 4. CAMADA DE CALOR (HEATMAP) ---
     if dados_calor:
-        print("🔥 Adicionando Mapa de Calor...")
-        # radius=20 e blur=15 criam manchas visíveis no mapa
-        HeatMap(dados_calor, radius=20, blur=15).add_to(mapa)
-        
+        # Criamos o HeatMap como uma camada separada
+        camada_calor = HeatMap(dados_calor, name="🔥 Mapa de Calor (Densidade)", radius=20, blur=15, show=False)
+        camada_calor.add_to(mapa)
+
+    # --- 5. ADICIONANDO TUDO AO MAPA E O BOTÃO DE CONTROLE ---
+    camada_risco.add_to(mapa)
+    camada_indicadores.add_to(mapa)
+
+    # O COMANDO MÁGICO: Adiciona o seletor no canto superior direito
+    folium.LayerControl(collapsed=False).add_to(mapa)
+    
     mapa.save("mapa_seguranca_alimentar.html")
-    print("✅ Mapa gerado com TODAS as camadas (Calor, Marcadores Coloridos e Geofencing)!")
+    print("✅ Mapa gerado! Agora você pode alternar as camadas no canto superior direito.")
